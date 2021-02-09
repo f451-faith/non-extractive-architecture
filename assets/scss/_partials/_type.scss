@@ -1,0 +1,90 @@
+// INITIATE TYPE SIZES
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+
+.small {
+  font-size: var(--font-xxs-m);
+
+  @include mq(sm) {
+    font-size: var(--font-xxs-d);
+  }
+}
+
+.h6 {
+  font-size: var(--font-xs-m);
+
+  @include mq(sm) {
+    font-size: var(--font-xs-d);
+  }
+}
+
+.h5 {
+  font-size: var(--font-sm-m);
+
+  @include mq(sm) {
+    font-size: var(--font-sm-d);
+  }
+}
+
+.h4 {
+  font-size: var(--font-md-m);
+
+  @include mq(sm) {
+    font-size: var(--font-md-d);
+  }
+}
+
+.h3 {
+  font-size: var(--font-lg-m);
+
+  @include mq(sm) {
+    font-size: var(--font-lg-d);
+  }
+}
+
+.h2 {
+  font-size: var(--font-xl-m);
+
+  @include mq(sm) {
+    font-size: var(--font-xl-d);
+  }
+}
+
+.h1 {
+  font-size: var(--font-xxl-m);
+
+  @include mq(sm) {
+    font-size: var(--font-xxl-d);
+  }
+}
+
+// __________________________________________________________ //
+
+// INITIATE LINE HEIGHT
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.small {
+  line-height: var(--lh);
+  font-weight: normal;
+}

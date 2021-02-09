@@ -1,0 +1,129 @@
+.font-regular {
+  font-family: pragmatica, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-italic {
+  font-family: pragmatica, sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+// INITIATE
+
+@mixin mq($mq-breakpoint, $mq-breakpoints: $breakpoints) {
+  @if map-has-key($mq-breakpoints, $mq-breakpoint) {
+    $mq-breakpoint: map-get($mq-breakpoints, $mq-breakpoint);
+  }
+  @media screen and (min-width: #{$mq-breakpoint}) {
+    @content;
+  }
+}
+
+@mixin transition(
+  $property: $transition-property-default,
+  $duration: $transition-duration-default,
+  $timing: $transition-timing-default,
+  $delay: $transition-delay-default
+) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $timing;
+  transition-delay: $delay;
+}
+
+.transition {
+  @include transition;
+}
+
+// BORDER-BOX, RESET
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+* {
+  margin: 0;
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  -webkit-font-kerning: normal;
+  font-kerning: normal;
+
+  @if $font-smoothing-moz==true {
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  @if $font-smoothing-webkit==true {
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+body,
+html {
+  -webkit-tap-highlight-color: transparent;
+  height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+// __________________________________________________________ //
+
+// TYPE SIZE
+
+html,
+body {
+  @extend .font-regular;
+  font-size: var(--font-m);
+  line-height: var(--lh);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+
+  @include mq(sm) {
+    font-size: var(--font-d);
+  }
+}
+
+html {
+  background: var(--color-bg);
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+ol {
+  list-style-position: inside;
+}
+
+img {
+  width: 100%;
+}
+
+strong,
+b {
+  font-weight: normal;
+}
+
+i,
+em {
+  font-style: normal;
+}

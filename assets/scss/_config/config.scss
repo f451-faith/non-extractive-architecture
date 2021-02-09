@@ -1,0 +1,80 @@
+// CONFIGURATE DOCUMENT
+
+$font-size-desktop: 15px;
+$font-xxs-desktop: 0.5rem;
+$font-xs-desktop: 0.75rem;
+$font-sm-desktop: 1rem;
+$font-md-desktop: 1.5rem;
+$font-lg-desktop: 1.75rem;
+$font-xl-desktop: 2rem;
+$font-xxl-desktop: 10rem;
+
+$font-size-mobile: 16px;
+$font-xxs-mobile: 0.5rem;
+$font-xs-mobile: 0.75rem;
+$font-sm-mobile: 1rem;
+$font-md-mobile: 1.5rem;
+$font-lg-mobile: 2rem;
+$font-xl-mobile: 4rem;
+$font-xxl-mobile: 10rem;
+
+$line-height: 1;
+$line-height-xxs: 0.75;
+$line-height-xs: 1;
+$line-height-sm: 1.125;
+$line-height-md: 1.25;
+$line-height-lg: 1.33;
+$line-height-xl: 2;
+$line-height-xxl: 4;
+
+$base-space: 5px;
+
+:root {
+  --columns: 12;
+  --color-text: black;
+  --color-link: black;
+  --color-bg: white;
+  --color-border: #f0f0f0;
+  --color-green: #00cf00;
+  --color-blue: #00ffff;
+  --color-yellow: #ffff00;
+  --color-grey: #828282;
+  --color-border-header: #dcdcdc;
+}
+
+// __________________________________________________________ //
+
+// FONTS
+
+$font-smoothing-moz: true;
+$font-smoothing-webkit: true;
+
+// __________________________________________________________ //
+
+// BREAKPOINTS
+
+$breakpoints: (
+  xs: 0px,
+  sm: 576px,
+  md: 1000px,
+  lg: 1200px,
+  xl: 1500px,
+  xxl: 1800px
+);
+
+// __________________________________________________________ //
+
+// TRANSITION
+
+$transition-property-default: all;
+$transition-duration-default: 0.3s;
+$transition-timing-default: cubic-bezier(0.7, 0, 0.3, 1);
+$transition-delay-default: 0s;
+
+// __________________________________________________________ //
+
+// FREE CONFIG
+
+:root {
+  --header-height: calc(#{$font-size-desktop} + #{$base-space} * 6);
+}

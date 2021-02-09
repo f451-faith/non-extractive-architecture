@@ -6,19 +6,28 @@
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate",
+    "generate": "DEPLOY_ENV=GH_PAGES nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lint": "npm run lint:js"
+    "lint": "npm run lint:js",
+    "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
+    "@nuxt/content": "^1.11.1",
+    "@nuxt/http": "^0.6.2",
     "core-js": "^3.6.5",
-    "nuxt": "^2.14.6"
+    "date-and-time": "^0.14.2",
+    "nuxt": "^2.14.6",
+    "slugify": "^1.4.6"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
     "@nuxtjs/eslint-module": "^2.0.0",
+    "@nuxtjs/style-resources": "^1.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.10.0",
-    "eslint-plugin-nuxt": "^1.0.0"
+    "eslint-plugin-nuxt": "^1.0.0",
+    "node-sass": "^5.0.0",
+    "push-dir": "^0.4.1",
+    "sass-loader": "^10.1.0"
   }
 }
