@@ -1,0 +1,13 @@
+{
+  "launch": {
+
+    "configurations": [],
+    "compounds": []
+  },
+  "vetur.validation.template": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ]
+}
