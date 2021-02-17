@@ -11,14 +11,10 @@
         <div class="sheets__titles">
           <div class="sheets__header">
             <div class="sheets__header__left">
-              <div class="sheets__title">
-                {{ formValue.title }}
-              </div>
-              <div class="sheets__subtitle">
-                {{ formValue.subtitle }}
-              </div>
+              <div class="sheets__title" v-html="md(formValue.title)" />
+              <div class="sheets__subtitle" v-html="md(formValue.subtitle)" />
             </div>
-            <div class="sheets__header__right">
+            <div v-if="formValue.title.length > 0" class="sheets__header__right">
               <div class="sheets__arrow" :class="{ down: isDownArrow }" />
             </div>
           </div>
@@ -30,14 +26,8 @@
           </div>
         </div>
         <div class="sheets__texts">
-          <div v-if="formValue.text" class="sheets__text" lang="en">
-            <p>{{ formValue.text }}</p>
-          </div>
-          <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it">
-            <p>{{ italianTitle }}</p>
-            <p>{{ italianSubtitle }}</p>
-            <p>{{ italianText }}</p>
-          </div>
+          <div v-if="formValue.text" class="sheets__text" lang="en" v-html="md(formValue.text)" />
+          <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it" v-html="md(italianTranslation)" />
         </div>
       </div>
     </div>
@@ -45,6 +35,8 @@
 </template>
 
 <script>
+import marked from 'marked'
+
 export default {
   name: 'Sheets',
   props: {
@@ -84,16 +76,8 @@ export default {
       return false
     },
 
-    italianTitle () {
-      return this.getTranslation(this.formValue.title)
-    },
-
-    italianSubtitle () {
-      return this.getTranslation(this.formValue.subtitle)
-    },
-
-    italianText () {
-      return this.getTranslation(this.formValue.text)
+    italianTranslation () {
+      return this.formValue.title + '\r\r' + this.formValue.subtitle + '\r\r' + this.formValue.text
     }
   },
 
@@ -113,8 +97,8 @@ export default {
       this.windowHeight = window.innerHeight
     },
 
-    getTranslation (text) {
-      return text
+    md (str) {
+      return marked(str, { sanitize: true })
     }
   }
 }
@@ -236,6 +220,10 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   word-break: break-word;
+
+  p {
+    white-space: pre;
+  }
 
   [data-template="template-1-2-1"] & {
     grid-column: 1 / 2;

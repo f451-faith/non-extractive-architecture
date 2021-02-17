@@ -10,7 +10,7 @@
           <div class="sidebar__item">
             <div class="sidebar__item__header">
               <label for="title">Title</label>
-              <div class="sidebar__input__length" :class="{ error: formValue.title.length >= 100}">
+              <div class="sidebar__input__length" :class="{ error: formValue.title.length >= 100 }">
                 <span>{{ formValue.title.length }}</span><span>100</span>
               </div>
             </div>
@@ -23,10 +23,10 @@
               @input="autogrow"
             />
           </div>
-          <div class="sidebar__item">
+          <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
             <div class="sidebar__item__header">
               <label for="subtitle">Subtitle</label>
-              <div class="sidebar__input__length" :class="{ error: formValue.subtitle.length >= 100}">
+              <div class="sidebar__input__length" :class="{ error: formValue.subtitle.length >= 100 }">
                 <span>{{ formValue.subtitle.length }}</span><span>100</span>
               </div>
             </div>
@@ -39,10 +39,10 @@
               @input="autogrow"
             />
           </div>
-          <div class="sidebar__item">
+          <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 }">
             <div class="sidebar__item__header">
               <label for="text_english">Your text</label>
-              <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 400}">
+              <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 400 }">
                 <span>{{ formValue.text.length }}</span><span>400</span>
               </div>
             </div>
@@ -51,7 +51,7 @@
               class="sidebar__input__area"
               name="text_english"
               maxlength="400"
-              rows="1"
+              rows="2"
               @input="autogrow"
             />
           </div>
@@ -87,8 +87,12 @@ export default {
 
   methods: {
     autogrow (event) {
-      event.target.style.height = '5px'
-      event.target.style.height = (event.target.scrollHeight + 2) + 'px'
+      const el = event.target
+      const rows = el.getAttribute('rows')
+      el.style.minHeight = '0'
+      el.style.height = '5px'
+      el.style.minHeight = (rows * 18 + 12) + 'px'
+      el.style.height = (el.scrollHeight + 2) + 'px'
     }
   }
 }
@@ -132,9 +136,19 @@ export default {
 }
 
 .sidebar__item {
+  @extend .transition;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  transition-property: opacity;
+
+  &.disabled {
+    opacity: 0.25;
+
+    textarea {
+      pointer-events: none;
+    }
+  }
 
   &:not(:last-child) {
     @include margin(0 0 2 0);
@@ -148,7 +162,7 @@ export default {
     border-radius: 5px;
   }
 
-  input, textarea {
+  textarea {
     @include padding(1 4);
     background-color: white;
     border: 1px solid var(--color-blue);
