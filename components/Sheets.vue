@@ -291,10 +291,6 @@ export default {
 .sheets__text {
   word-break: break-word;
 
-  p {
-    white-space: pre;
-  }
-
   &:not(:last-child) {
     margin-bottom: var(--space-xl-d);
   }

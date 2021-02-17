@@ -114,6 +114,7 @@ export default {
   flex-direction: column;
   box-shadow: 0px 0px 10px 0px rgba(0,0,255,0.25);
   border-radius: 5px;
+  background: white;
 }
 
 .sidebar__header {
