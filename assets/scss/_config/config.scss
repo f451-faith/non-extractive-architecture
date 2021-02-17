@@ -38,6 +38,7 @@ $base-space: 5px;
   --color-subtitle: #808080;
   --color-grey: #efefef;
   --color-darkgrey: #afafaf;
+  --color-error: red
 }
 
 // __________________________________________________________ //
@@ -107,3 +108,6 @@ $transition-delay-default: 0s;
   object-fit: cover;
 }
 
+i, em {
+  @extend .font-italic;
+}

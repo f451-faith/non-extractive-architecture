@@ -12,11 +12,14 @@
       v-if="sidebar"
       :images="images"
       :template="template"
+      :form-value="formValue"
     />
     <Sidebar
       v-if="sidebar"
       :images="images"
       :template="template"
+      :form-value="formValue"
+      @inputUpdate="formValue = formValue"
     />
   </main>
 </template>
@@ -27,7 +30,12 @@ export default {
     return {
       sidebar: false,
       images: [],
-      template: null
+      template: null,
+      formValue: {
+        title: '',
+        subtitle: '',
+        text: ''
+      }
     }
   },
 
@@ -59,7 +67,6 @@ export default {
 </script>
 
 <style lang="scss">
-
   // .sheets {
   //   padding: 8mm;
   //   height: calc(297mm - 1px);

@@ -1,5 +1,64 @@
 <template>
-  <section class="sidebar" />
+  <section class="sidebar">
+    <div class="sidebar__inner">
+      <div class="sidebar__header">
+        <h1>Non-Extractive Architecture</h1>
+        <h2>Research Software</h2>
+      </div>
+      <div class="sidebar__body">
+        <div class="sidebar__form">
+          <div class="sidebar__item">
+            <div class="sidebar__item__header">
+              <label for="title">Title</label>
+              <div class="sidebar__input__length" :class="{ error: formValue.title.length >= 100}">
+                <span>{{ formValue.title.length }}</span><span>100</span>
+              </div>
+            </div>
+            <textarea
+              v-model="formValue.title"
+              class="sidebar__input__area"
+              name="title"
+              maxlength="100"
+              rows="1"
+              @input="autogrow"
+            />
+          </div>
+          <div class="sidebar__item">
+            <div class="sidebar__item__header">
+              <label for="subtitle">Subtitle</label>
+              <div class="sidebar__input__length" :class="{ error: formValue.subtitle.length >= 100}">
+                <span>{{ formValue.subtitle.length }}</span><span>100</span>
+              </div>
+            </div>
+            <textarea
+              v-model="formValue.subtitle"
+              class="sidebar__input__area"
+              name="subtitle"
+              maxlength="100"
+              rows="1"
+              @input="autogrow"
+            />
+          </div>
+          <div class="sidebar__item">
+            <div class="sidebar__item__header">
+              <label for="text_english">Your text</label>
+              <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 400}">
+                <span>{{ formValue.text.length }}</span><span>400</span>
+              </div>
+            </div>
+            <textarea
+              v-model="formValue.text"
+              class="sidebar__input__area"
+              name="text_english"
+              maxlength="400"
+              rows="1"
+              @input="autogrow"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -13,10 +72,128 @@ export default {
     template: {
       type: String,
       default: ''
+    },
+    formValue: {
+      type: Object,
+      default: null
+    }
+  },
+
+  watch: {
+    formValue () {
+      this.$emit('inputUpdate', this.formValue)
+    }
+  },
+
+  methods: {
+    autogrow (event) {
+      event.target.style.height = '5px'
+      event.target.style.height = (event.target.scrollHeight + 2) + 'px'
     }
   }
 }
 </script>
 
 <style lang="scss">
+.sidebar {
+  @include padding(2);
+  position: fixed;
+  max-height: 100vh;
+  display: flex;
+  right: 0;
+  top: 0;
+}
+
+.sidebar__inner {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,255,0.25);
+  border-radius: 5px;
+}
+
+.sidebar__header {
+  @include padding(1);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-blue);
+}
+
+.sidebar__body {
+  @include padding(1);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar__item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &:not(:last-child) {
+    @include margin(0 0 2 0);
+  }
+
+  label {
+    @include padding(1 4);
+    border: 1px solid var(--color-grey);
+    background-color: var(--color-grey);
+    color: var(--color-darkgrey);
+    border-radius: 5px;
+  }
+
+  input, textarea {
+    @include padding(1 4);
+    background-color: white;
+    border: 1px solid var(--color-blue);
+    color: var(--color-blue);
+    border-radius: 5px;
+    outline: none;
+    width: 100%;
+    resize: none;
+  }
+}
+
+.sidebar__item__header {
+  @include margin(0 0 1 0);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.sidebar__input__length {
+  @extend .h6, .transition;
+  color: var(--color-darkgrey);
+  opacity: 0;
+  transition-property: opacity;
+  pointer-events: none;
+
+  .sidebar__item:focus-within & {
+    opacity: 1;
+  }
+
+  &.error {
+    color: var(--color-error)
+  }
+
+  & > span {
+    &:first-child {
+      @include margin(0 1 0 0);
+    }
+
+    &:last-child {
+      &:before {
+        @include margin(0 1 0 0);
+        content: '<';
+      }
+    }
+  }
+}
 </style>
