@@ -1,7 +1,5 @@
 <template>
-  <section class="sidebar">
-    {{ template }}
-  </section>
+  <section class="sidebar" />
 </template>
 
 <script>

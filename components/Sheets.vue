@@ -1,5 +1,5 @@
 <template>
-  <section class="sheets" :data-template="template">
+  <section ref="sheets" class="sheets js-sheetsContainer" :data-template="template" :style="{ transform: `scale(${scaleSheets})`}">
     <div class="sheets__inner">
       <div v-if="images" class="sheets__grid">
         <div v-for="image in images" :key="image" class="sheets__image">
@@ -50,34 +50,64 @@ export default {
       type: String,
       default: ''
     }
+  },
+
+  data () {
+    return {
+      sheetsHeight: 0,
+      windowHeight: window.innerHeight
+    }
+  },
+
+  computed: {
+    scaleSheets () {
+      const sheetsHeight = this.sheetsHeight
+      const scale = this.windowHeight / sheetsHeight
+      return scale
+    }
+  },
+
+  mounted () {
+    this.$nextTick(() => {
+      this.sheetsHeight = this.$refs.sheets.clientHeight
+      window.addEventListener('resize', this.onResize)
+    })
+  },
+
+  beforeDestroy () {
+    window.removeEventListener('resize', this.onResize)
+  },
+
+  methods: {
+    onResize () {
+      this.windowHeight = window.innerHeight
+    }
   }
 }
 </script>
 
 <style lang="scss">
 :root {
-  --inside: 0.5vw;
-  --outside: 1vw;
-  --external: 2vw; // --outside * 2
+  --inside: 10mm;
+  --outside: 20mm;
+  --external: 40mm; // --outside * 2
   --aspect-ratio: 1.414;
 }
 
 .sheets {
+  @extend .h2;
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   top: 0;
   left: 0;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  overflow: hidden;
   padding: var(--outside);
+  transform-origin: top left;
 }
 
 .sheets__inner {
   border: 1px solid var(--color-blue);
-  height: 100%;
 }
 
 .sheets__grid {
@@ -86,11 +116,10 @@ export default {
   --rowsPercentage: calc(100% / var(--rows));
   --colsPercentage: calc(100% / var(--columns));
   display: grid;
-  height: 100%;
   grid-column-gap: var(--inside);
   grid-row-gap: var(--inside);
-  grid-template-columns: repeat(var(--columns), var(--cellWidth));
-  grid-template-rows: repeat(var(--rows), minmax(0, 1fr));
+  grid-template-columns: repeat(var(--columns), 420mm);
+  grid-template-rows: repeat(var(--rows), 297mm);
   mask-composite: source-in, xor;
   mask-image: linear-gradient(90deg, transparent 0%, transparent calc(var(--inside) / 2), black calc(var(--inside) / 2), black calc(100% - var(--inside) / 2), transparent calc(100% - var(--inside) / 2), transparent calc(100% + var(--inside) / 2)),
               linear-gradient(transparent 0%, transparent calc(var(--inside) / 2), black calc(var(--inside) / 2), black calc(100% - var(--inside) / 2), transparent calc(100% - var(--inside) / 2), transparent calc(100% + var(--inside) / 2));
@@ -142,6 +171,57 @@ export default {
           @extend .cover;
         }
       }
+    }
+  }
+}
+
+.sheets__titles {
+  padding: var(--outside);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sheets__texts {
+  padding: var(--outside);
+}
+
+.sheets__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sheets__subtitle {
+  color: var(--color-subtitle)
+}
+
+.sheets__captions {
+  @extend .h3;
+}
+
+.sheets__arrow {
+  &:before {
+    content: '';
+  }
+}
+
+.sheets__text {
+  &:not(:last-child) {
+    margin-bottom: var(--space-xl-d);
+  }
+
+  &[lang="en"] {
+    &:before {
+      content: "En  ";
+      color: var(--color-subtitle)
+    }
+  }
+
+  &[lang="it"] {
+    &:before {
+      content: "It  ";
+      color: var(--color-subtitle)
     }
   }
 }

@@ -5,8 +5,8 @@ $font-xxs-desktop: 0.5rem;
 $font-xs-desktop: 0.75rem;
 $font-sm-desktop: 1rem;
 $font-md-desktop: 1.5rem;
-$font-lg-desktop: 1.75rem;
-$font-xl-desktop: 2rem;
+$font-lg-desktop: 25px;
+$font-xl-desktop: 50px;
 $font-xxl-desktop: 10rem;
 
 $font-size-mobile: 16px;
@@ -35,6 +35,7 @@ $base-space: 5px;
   --color-link: black;
   --color-bg: white;
   --color-blue: blue;
+  --color-subtitle: #808080;
   --color-grey: #efefef;
   --color-darkgrey: #afafaf;
 }
