@@ -34,7 +34,8 @@ export default {
       formValue: {
         title: '',
         subtitle: '',
-        text: ''
+        text: '',
+        caption: []
       }
     }
   },
@@ -59,8 +60,17 @@ export default {
 
       reader.onload = (e) => {
         vm.images.push(e.target.result)
+        vm.updateCaptions()
       }
       reader.readAsDataURL(file)
+    },
+
+    updateCaptions () {
+      const arr = []
+      this.images.forEach((el) => {
+        arr.push('')
+      })
+      this.formValue.caption = arr
     }
   }
 }

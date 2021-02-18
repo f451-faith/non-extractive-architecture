@@ -19,9 +19,8 @@
             </div>
           </div>
           <div class="sheets__captions">
-            <div class="sheets__caption">
-              <span class="sheets__caption__number">〈 1 〉</span>
-              <span class="sheets__caption__text">Caption Image One, Auteur. Precise reference and copyrights, 2021</span>
+            <div v-for="(caption, index) in formValue.caption" :key="caption" class="sheets__caption">
+              <span class="sheets__caption__text" :style="{ '--number': index + 1 }" v-html="md(caption)" />
             </div>
           </div>
         </div>
@@ -98,7 +97,7 @@ export default {
     },
 
     md (str) {
-      return marked(str, { sanitize: true })
+      return marked(str)
     }
   }
 }
@@ -274,8 +273,12 @@ export default {
   @extend .h3;
 }
 
-.sheets__caption__number {
-  margin-right: 10mm;
+.sheets__caption__text {
+  & p:first-child:before {
+    counter-increment: caption var(--number);
+    content: '〈 ' counter(caption) ' 〉';
+    margin-right: 10mm;
+  }
 }
 
 .sheets__arrow {

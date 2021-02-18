@@ -56,6 +56,24 @@
             />
           </div>
         </div>
+        <div class="sidebar__form">
+          <div v-for="(image, index) in images" :key="image" class="sidebar__item">
+            <div class="sidebar__item__header">
+              <label :for="'caption' + index">Caption image {{ index + 1 }}</label>
+              <div class="sidebar__input__length" :class="{ error: formValue.caption[index].length >= 100 }">
+                <span>{{ formValue.caption[index].length }}</span><span>100</span>
+              </div>
+            </div>
+            <textarea
+              v-model="formValue.caption[index]"
+              class="sidebar__input__area"
+              :name="'caption' + index"
+              maxlength="100"
+              rows="1"
+              @input="autogrow"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -134,6 +152,12 @@ export default {
 .sidebar__form {
   display: flex;
   flex-direction: column;
+
+  &:not(:last-child) {
+    @include padding(0 0 2 0);
+    @include margin(0 0 2 0);
+    border-bottom: 1px solid var(--color-grey);
+  }
 }
 
 .sidebar__item {
