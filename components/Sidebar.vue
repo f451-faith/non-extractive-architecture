@@ -21,6 +21,7 @@
               maxlength="100"
               rows="1"
               @input="autogrow"
+              @focus="autogrow"
             />
           </div>
           <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
@@ -37,6 +38,7 @@
               maxlength="100"
               rows="1"
               @input="autogrow"
+              @focus="autogrow"
             />
           </div>
           <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 }">
@@ -53,6 +55,7 @@
               maxlength="400"
               rows="2"
               @input="autogrow"
+              @focus="autogrow"
             />
           </div>
         </div>
@@ -60,19 +63,25 @@
           <div v-for="(image, index) in images" :key="image" class="sidebar__item">
             <div class="sidebar__item__header">
               <label :for="'caption' + index">Caption image {{ index + 1 }}</label>
-              <div class="sidebar__input__length" :class="{ error: formValue.caption[index].length >= 100 }">
-                <span>{{ formValue.caption[index].length }}</span><span>100</span>
+              <div class="sidebar__input__length" :class="{ error: formValue.caption[index].length >= 200 }">
+                <span>{{ formValue.caption[index].length }}</span><span>200</span>
               </div>
             </div>
             <textarea
               v-model="formValue.caption[index]"
               class="sidebar__input__area"
               :name="'caption' + index"
-              maxlength="100"
+              maxlength="200"
               rows="1"
               @input="autogrow"
+              @focus="autogrow"
             />
           </div>
+        </div>
+        <div class="sidebar__form">
+          <button class="sidebar__button" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 || formValue.text.length === 0 }" @click.prevent="printSheets">
+            Print the composition
+          </button>
         </div>
       </div>
     </div>
@@ -111,6 +120,24 @@ export default {
       el.style.height = '5px'
       el.style.minHeight = (rows * 18 + 12) + 'px'
       el.style.height = (el.scrollHeight + 2) + 'px'
+    },
+
+    printSheets () {
+      const sheets = document.querySelector('.js-sheetsInner')
+      const printPages = document.querySelectorAll('.js-printPage')
+      Array.from(printPages).forEach((page) => {
+        const clone = sheets.cloneNode(true)
+        clone.style = ''
+        page.innerHTML = ''
+        page.appendChild(clone)
+      })
+      window.print()
+
+      window.addEventListener('afterprint', function () {
+        Array.from(printPages).forEach((page) => {
+          page.innerHTML = ''
+        })
+      })
     }
   }
 }
@@ -124,6 +151,10 @@ export default {
   display: flex;
   right: 0;
   top: 0;
+
+  @include print {
+    display: none;
+  }
 }
 
 .sidebar__inner {
@@ -233,6 +264,22 @@ export default {
         content: '<';
       }
     }
+  }
+}
+
+.sidebar__button {
+  @extend .transition;
+  @include padding(4);
+  background-color: var(--color-blue);
+  color: white;
+  border: 1px solid var(--color-blue);
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+
+  &.disabled {
+    opacity: 0.25;
+    pointer-events: none;
   }
 }
 </style>

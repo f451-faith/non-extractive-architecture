@@ -9,6 +9,12 @@
   }
 }
 
+@mixin print() {
+  @media print {
+    @content;
+  }
+}
+
 @mixin transition(
   $property: $transition-property-default,
   $duration: $transition-duration-default,

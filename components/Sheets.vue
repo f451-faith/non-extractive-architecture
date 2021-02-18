@@ -1,6 +1,6 @@
 <template>
-  <section class="sheets" :data-template="template">
-    <div ref="sheets" class="sheets__inner" :style="{ transform: `scale(${scaleSheets})`}">
+  <section class="sheets">
+    <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template">
       <div v-if="images" class="sheets__grid">
         <div v-for="(image, index) in images" :key="image" class="sheets__image">
           <img :src="image">
@@ -113,7 +113,6 @@ export default {
 
 .sheets {
   @include padding(2);
-  @extend .h2;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -122,11 +121,20 @@ export default {
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
+
+  @include print {
+    display: none;
+  }
 }
 
 .sheets__inner {
+  @extend .h2;
   transform-origin: top left;
   border: 1px solid var(--color-blue);
+
+  .print & {
+    border: none;
+  }
 }
 
 .sheets__grid {
@@ -145,6 +153,12 @@ export default {
   mask-repeat: repeat;
   mask-size: var(--colsPercentage) var(--rowsPercentage);
   mask-position: top left;
+
+  .print & {
+    mask: none;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+  }
 
   img {
     filter: grayscale(1);

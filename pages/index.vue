@@ -21,6 +21,10 @@
       :form-value="formValue"
       @inputUpdate="formValue = formValue"
     />
+    <Print
+      v-if="sidebar"
+      :template="template"
+    />
   </main>
 </template>
 
