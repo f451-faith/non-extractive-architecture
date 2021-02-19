@@ -47,7 +47,7 @@ export default {
       canvasWidth: 1,
       canvasHeight: 1,
       threshold: 120,
-      pixelSize: 1
+      pixelSize: 2
     }
   },
 
@@ -74,7 +74,7 @@ export default {
         const image = new Image()
         image.src = e.target.result
         image.onload = function () {
-          const ratio = image.height / image.width
+          const ratio = image.width / image.height
           vm.images.push({ image, ratio })
           vm.updateCaptions()
         }
@@ -149,7 +149,26 @@ export default {
     },
 
     getImageDimensions () {
-      return []
+      const image = this.template.images[0]
+      const columns = image.width
+      const rows = image.height
+      const width = columns * 420 - 40 + (columns - 1) * 10
+      const height = rows * 297 - 40 + (rows - 1) * 10
+      const ratio = width / height
+      const imageRatio = this.images[0].ratio
+      let imageHeight = null
+      let imageWidth = null
+      if (ratio > imageRatio) {
+        imageWidth = width
+        imageHeight = imageWidth / imageRatio
+      } else if (ratio < imageRatio) {
+        imageHeight = height
+        imageWidth = imageHeight * imageRatio
+      } else {
+        imageWidth = width
+        imageHeight = height
+      }
+      return [imageWidth, imageHeight]
     },
 
     setCanvas () {
@@ -162,9 +181,9 @@ export default {
     },
 
     resizeCanvas () {
-      // const imageDimensions = this.getImageDimensions()
-      this.canvasWidth = Math.round(this.getCanvasWidth())
-      this.canvasHeight = Math.round(this.getCanvasHeight())
+      const imageDimensions = this.getImageDimensions()
+      this.canvasWidth = Math.round(this.getCanvasWidth(imageDimensions[0]))
+      this.canvasHeight = Math.round(this.getCanvasHeight(imageDimensions[1]))
       this.$refs.canvas.setAttribute('width', this.canvasWidth)
       this.$refs.canvas.setAttribute('height', this.canvasHeight)
       const ctx = this.$refs.canvas.getContext('2d')
@@ -199,9 +218,10 @@ export default {
 
 <style lang="scss">
 canvas {
-  position: fixed;
-  top: 0;
-  border: 1px solid;
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+  z-index: -9999;
 
   @include print {
     display: none
