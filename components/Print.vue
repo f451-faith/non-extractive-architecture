@@ -1,6 +1,6 @@
 <template>
   <section class="print" :style="{ '--columnsNb': width, '--rowsNb': height}">
-    <div v-for="(n, index) in totalNumber" :key="n" class="print__page" :style="{ '--x': Math.floor(index / width), '--y': index % width}">
+    <div v-for="(n, index) in totalNumber" :key="index" class="print__page" :style="{ '--x': Math.floor(index / width), '--y': index % width}">
       <div class="print__page__inner js-printPage" />
     </div>
   </section>

@@ -2,8 +2,8 @@
   <section class="sheets">
     <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template">
       <div v-if="images" class="sheets__grid">
-        <div v-for="(image, index) in images" :key="image" class="sheets__image">
-          <img :src="image">
+        <div v-for="(image, index) in images" :key="index" class="sheets__image">
+          <img :src="image.url">
           <div class="sheets__image__number">
             {{ index + 1 }}
           </div>
@@ -19,7 +19,7 @@
             </div>
           </div>
           <div class="sheets__captions">
-            <div v-for="(caption, index) in formValue.caption" :key="caption" class="sheets__caption">
+            <div v-for="(caption, index) in formValue.caption" :key="index" class="sheets__caption">
               <span class="sheets__caption__text" :style="{ '--number': index + 1 }" v-html="md(caption)" />
             </div>
           </div>

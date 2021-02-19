@@ -1,10 +1,8 @@
 <template>
   <main class="container">
-    <!-- <div v-if="images">
-      <img v-for="image in images" :key="image" :src="image">
-    </div> -->
     <ImageForm
       v-if="!sidebar"
+      :images="images"
       @submitImagesToParent="submitImages"
       @submitTemplateToParent="submitTemplate"
     />
@@ -63,8 +61,18 @@ export default {
       const vm = this
 
       reader.onload = (e) => {
-        vm.images.push(e.target.result)
-        vm.updateCaptions()
+        const image = new Image()
+        image.src = e.target.result
+        image.onload = function () {
+          const height = this.height
+          const width = this.width
+          const ratio = height / width
+          vm.images.push({
+            url: e.target.result,
+            ratio
+          })
+          vm.updateCaptions()
+        }
       }
       reader.readAsDataURL(file)
     },
@@ -81,10 +89,4 @@ export default {
 </script>
 
 <style lang="scss">
-  // .sheets {
-  //   padding: 8mm;
-  //   height: calc(297mm - 1px);
-  //   width: calc(420mm - 1px);
-  //   background-color: red;
-  // }
 </style>

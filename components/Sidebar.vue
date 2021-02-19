@@ -60,7 +60,7 @@
           </div>
         </div>
         <div class="sidebar__form">
-          <div v-for="(image, index) in images" :key="image" class="sidebar__item">
+          <div v-for="(image, index) in images" :key="index" class="sidebar__item">
             <div class="sidebar__item__header">
               <label :for="'caption' + index">Caption image {{ index + 1 }}</label>
               <div class="sidebar__input__length" :class="{ error: formValue.caption[index].length >= 200 }">

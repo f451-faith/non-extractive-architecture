@@ -34,7 +34,7 @@
               Choose a template for your module
             </div>
             <div class="imageform__body__buttons">
-              <div v-for="template in filteredTemplates" :key="template" class="imageform__body__template" @click="chooseTemplate(template)">
+              <div v-for="(template, index) in filteredTemplates" :key="index" class="imageform__body__template" @click="chooseTemplate(template)">
                 <img :src="getImageSrc(template)">
               </div>
             </div>
@@ -48,6 +48,13 @@
 <script>
 export default {
   name: 'ImageForm',
+
+  props: {
+    images: {
+      type: Array,
+      default: null
+    }
+  },
 
   data () {
     return {
@@ -123,6 +130,7 @@ export default {
       setTimeout(() => {
         this.showForm = false
         this.bodyInnerInactive = false
+        console.log(this.images)
       }, 300)
     },
 
