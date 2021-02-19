@@ -96,10 +96,6 @@ export default {
       type: Array,
       default: null
     },
-    template: {
-      type: String,
-      default: ''
-    },
     formValue: {
       type: Object,
       default: null

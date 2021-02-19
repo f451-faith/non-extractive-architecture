@@ -1,21 +1,21 @@
 <template>
   <section class="sheets">
-    <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template">
-      <div v-if="images" class="sheets__grid">
-        <div v-for="(image, index) in images" :key="index" class="sheets__image">
-          <img :src="image.url">
+    <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template.name">
+      <div v-if="images" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
+        <div v-for="(image, index) in images" :key="index" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows }" class="sheets__image">
+          <img :src="image.ditheredImage">
           <div class="sheets__image__number">
             {{ index + 1 }}
           </div>
         </div>
-        <div class="sheets__titles">
+        <div class="sheets__titles" :style="{ gridColumn: template.titles.columns, gridRow: template.titles.rows }">
           <div class="sheets__header">
             <div class="sheets__header__left">
               <div class="sheets__title" v-html="md(formValue.title)" />
               <div class="sheets__subtitle" v-html="md(formValue.subtitle)" />
             </div>
             <div v-if="formValue.title.length > 0" class="sheets__header__right">
-              <div class="sheets__arrow" :class="{ down: isDownArrow }" />
+              <div class="sheets__arrow" :class="{ down: template.arrow === 'down' }" />
             </div>
           </div>
           <div class="sheets__captions">
@@ -24,7 +24,7 @@
             </div>
           </div>
         </div>
-        <div class="sheets__texts">
+        <div class="sheets__texts" :style="{ gridColumn: template.texts.columns, gridRow: template.texts.rows }">
           <div v-if="formValue.text" class="sheets__text" lang="en" v-html="md(formValue.text)" />
           <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it" v-html="md(italianTranslation)" />
         </div>
@@ -44,8 +44,8 @@ export default {
       default: null
     },
     template: {
-      type: String,
-      default: ''
+      type: Object,
+      default: null
     },
     formValue: {
       type: Object,
@@ -56,10 +56,7 @@ export default {
   data () {
     return {
       sheetsHeight: 0,
-      windowHeight: window.innerHeight,
-      templatesDown: [
-        'template-3-4-1'
-      ]
+      windowHeight: window.innerHeight
     }
   },
 
@@ -68,11 +65,6 @@ export default {
       const sheetsHeight = this.sheetsHeight
       const scale = (this.windowHeight - 20) / sheetsHeight
       return scale
-    },
-
-    isDownArrow () {
-      if (this.templatesDown.includes(this.template)) { return true }
-      return false
     },
 
     italianTranslation () {
@@ -167,48 +159,14 @@ export default {
   & > div {
     overflow: hidden;
   }
-
-  [data-template="template-1-2-1"] & {
-    --columns: 1;
-    --rows: 2;
-  }
-
-  [data-template="template-2-3-1"] & {
-    --columns: 2;
-    --rows: 3;
-  }
-
-  [data-template="template-3-4-1"] & {
-    --columns: 3;
-    --rows: 4;
-  }
 }
 
 .sheets__image {
   padding: var(--outside);
   position: relative;
 
-  [data-template="template-1-2-1"] & {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-  }
-
-  [data-template="template-2-3-1"] & {
-    grid-column: 1 / 3;
-    grid-row: 1 / 3;
-
-    img {
-      @extend .cover;
-    }
-  }
-
-  [data-template="template-3-4-1"] & {
-    grid-column: 1 / 4;
-    grid-row: 2 / 5;
-
-    img {
-      @extend .cover;
-    }
+  img {
+    @extend .cover;
   }
 }
 
@@ -237,40 +195,10 @@ export default {
   p {
     white-space: pre;
   }
-
-  [data-template="template-1-2-1"] & {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-  }
-
-  [data-template="template-2-3-1"] & {
-    grid-column: 1 / 2;
-    grid-row: 3 / 4;
-  }
-
-  [data-template="template-3-4-1"] & {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-  }
 }
 
 .sheets__texts {
   padding: var(--outside);
-
-  [data-template="template-1-2-1"] & {
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-  }
-
-  [data-template="template-2-3-1"] & {
-    grid-column: 2 / 3;
-    grid-row: 3 / 4;
-  }
-
-  [data-template="template-3-4-1"] & {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-  }
 }
 
 .sheets__header {
@@ -288,7 +216,7 @@ export default {
 }
 
 .sheets__caption__text {
-  & p:first-child:before {
+  p:first-child:before {
     counter-increment: caption var(--number);
     content: '〈 ' counter(caption) ' 〉';
     margin-right: 10mm;
@@ -313,7 +241,7 @@ export default {
   }
 
   &[lang="en"] {
-    & p:first-child:before {
+    p:first-child:before {
       content: "En  ";
       margin-right: 10mm;
       color: var(--color-subtitle)
@@ -321,7 +249,7 @@ export default {
   }
 
   &[lang="it"] {
-    & p:first-child:before {
+    p:first-child:before {
       content: "It  ";
       margin-right: 10mm;
       color: var(--color-subtitle)

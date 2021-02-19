@@ -11,18 +11,18 @@ export default {
   name: 'Print',
   props: {
     template: {
-      type: String,
-      default: ''
+      type: Object,
+      default: null
     }
   },
 
   computed: {
     width () {
-      return this.template.charAt(9)
+      return this.template.width
     },
 
     height () {
-      return this.template.charAt(11)
+      return this.template.height
     },
 
     totalNumber () {

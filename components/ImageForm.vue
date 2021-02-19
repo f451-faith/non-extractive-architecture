@@ -66,32 +66,86 @@ export default {
       showImageSubmit: false,
       bodyInnerInactive: false,
       templates: [
-        'template-1-2-1',
-        'template-2-3-1',
-        'template-3-4-1',
-        'template-1-2-2',
-        'template-2-3-2',
-        'template-3-4-2',
-        'template-1-2-3',
-        'template-2-3-3',
-        'template-3-4-3',
-        'template-1-2-4',
-        'template-2-3-4',
-        'template-3-4-4'
+        {
+          name: 'template-001',
+          width: 1,
+          height: 2,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 1,
+              columns: '1/2',
+              rows: '1/2'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '2/3'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '2/3'
+          }
+        },
+        {
+          name: 'template-002',
+          width: 2,
+          height: 3,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '1/3',
+              rows: '1/3'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '3/4'
+          }
+        },
+        {
+          name: 'template-003',
+          width: 3,
+          height: 4,
+          arrow: 'down',
+          images: [
+            {
+              width: 3,
+              height: 3,
+              columns: '1/4',
+              rows: '2/5'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '1/2'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '1/2'
+          }
+        }
       ]
     }
   },
 
   computed: {
     filteredTemplates () {
-      const number = this.imageNumber.toString().trim()
-      return this.templates.filter(t => t.slice(-1) === number)
+      const numberOfImages = this.imageNumber
+      return this.templates.filter(t => t.images.length === numberOfImages)
     }
   },
 
   methods: {
     getImageSrc (image) {
-      return require('@/assets/images/' + image + '.svg')
+      return require('@/assets/images/' + image.name + '.svg')
     },
 
     getImageForm () {
@@ -130,7 +184,6 @@ export default {
       setTimeout(() => {
         this.showForm = false
         this.bodyInnerInactive = false
-        console.log(this.images)
       }, 300)
     },
 
