@@ -2,7 +2,7 @@
   <section class="sheets">
     <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template.name">
       <div v-if="displayedImages" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
-        <div v-for="(image, index) in displayedImages" :key="index" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
+        <div v-for="(image, index) in displayedImages" :key="index" :class="{ load: sheetsLoading }" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
           <img :src="image.ditheredImage">
           <div class="sheets__image__number">
             {{ index + 1 }}
@@ -54,6 +54,10 @@ export default {
     formValue: {
       type: Object,
       default: null
+    },
+    sheetsLoading: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -183,6 +187,22 @@ export default {
   img {
     @extend .cover;
   }
+
+  &.load {
+    background-color: var(--color-blue);
+
+    img {
+      opacity: 0;
+    }
+
+    &:after {
+      content: 'Loading…';
+      position: absolute;
+      top: 10mm;
+      left: 10mm;
+      background: white;
+    }
+  }
 }
 
 .sheets__image__number {
@@ -190,13 +210,22 @@ export default {
   bottom: 10mm;
   right: 10mm;
   line-height: 1;
+  display: flex;
+  align-items: center;
+  background-color: white;
 
   &:before {
     content: '〈 ';
+    margin-top: -5px;
+    display: flex;
+    white-space: pre;
   }
 
   &:after {
     content: ' 〉';
+    margin-top: -5px;
+    display: flex;
+    white-space: pre;
   }
 }
 

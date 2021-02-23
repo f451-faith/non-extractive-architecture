@@ -64,7 +64,7 @@
             <div class="sidebar__item__header">
               <label :for="'select' + index">Image {{ index + 1 }}</label>
             </div>
-            <select :name="'select' + index" @change="changeImageDisplayed(index, $event)">
+            <select :name="'select' + index" :class="{ load: sheetsLoading }" @change="changeImageDisplayed(index, $event)">
               <option v-for="(img, i) in baseImages" :key="i" :value="img.name.replace(/\.[^/.]+$/, '')" :selected="i === index">
                 {{ img.name }}
               </option>
@@ -113,6 +113,10 @@ export default {
     formValue: {
       type: Object,
       default: null
+    },
+    sheetsLoading: {
+      type: Boolean,
+      default: false
     }
   },
 
@@ -243,7 +247,13 @@ export default {
     background-position-x: calc(100% - 20px);
     background-position-y: center;
     background-size: auto 50%;
-    cursor: pointer
+    cursor: pointer;
+
+    &.load {
+      background-color: var(--color-blue);
+      color: white;
+      pointer-events: none
+    }
   }
 
   label {

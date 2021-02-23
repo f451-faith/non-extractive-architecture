@@ -2,12 +2,14 @@
   <main class="container">
     <ImageForm
       v-if="!sidebar"
+      :form-loading="formLoading"
       @submitImagesToParent="submitImages"
       @submitTemplateToParent="submitTemplate"
     />
     <Sheets
       v-if="sidebar"
       :key="componentKey"
+      :sheets-loading="sheetsLoading"
       :base-images="baseImages"
       :displayed-images="displayedImages"
       :template="template"
@@ -15,6 +17,7 @@
     />
     <Sidebar
       v-if="sidebar"
+      :sheets-loading="sheetsLoading"
       :base-images="baseImages"
       :displayed-images="displayedImages"
       :form-value="formValue"
@@ -26,9 +29,6 @@
       :template="template"
     />
     <canvas v-for="(img, index) in baseImages" :key="index" ref="canvas" />
-    <div class="loading" :class="{ active: loading }">
-      Processing your images…
-    </div>
   </main>
 </template>
 
@@ -49,14 +49,15 @@ export default {
         text: '',
         caption: []
       },
-      loading: false,
+      formLoading: false,
+      sheetsLoading: false,
       lumR: [],
       lumG: [],
       lumB: [],
       col1: [162, 185, 61],
       col2: [26, 54, 20],
       threshold: 120,
-      pixelSize: 3
+      pixelSize: 4
     }
   },
 
@@ -69,24 +70,24 @@ export default {
 
     submitTemplate (templateFromForm) {
       this.template = templateFromForm
-      this.loading = true
+      this.formLoading = true
       setTimeout(() => {
         this.setCanvas()
         setTimeout(() => {
           this.sidebar = true
-          this.loading = false
+          this.formLoading = false
         }, 200)
       }, 200)
     },
 
     updateDisplayedImages (displayedImages) {
       this.displayedImages = displayedImages
-      this.loading = true
+      this.sheetsLoading = true
       setTimeout(() => {
         this.setCanvas()
         this.componentKey += 1
         setTimeout(() => {
-          this.loading = false
+          this.sheetsLoading = false
         }, 200)
       }, 200)
     },
@@ -259,35 +260,6 @@ canvas {
   left: -9999px;
   opacity: 0;
   z-index: -9999;
-
-  @include print {
-    display: none
-  }
-}
-
-.loading {
-  @extend .transition, .font-display;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-color: var(--color-blue);
-  opacity: 0;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10vw;
-  user-select: none;
-  color: white;
-  line-height: 0.8;
-  text-align: center;
-
-  &.active {
-    opacity: 1;
-    pointer-events: initial;
-  }
 
   @include print {
     display: none

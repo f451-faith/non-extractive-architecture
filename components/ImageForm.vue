@@ -38,6 +38,9 @@
                 <img :src="getImageSrc(template)">
               </div>
             </div>
+            <div :class="{ load: formLoading }" class="imageform__body__loading">
+              Processing your images…
+            </div>
           </div>
         </div>
       </div>
@@ -48,6 +51,12 @@
 <script>
 export default {
   name: 'ImageForm',
+  props: {
+    formLoading: {
+      type: Boolean,
+      default: false
+    }
+  },
 
   data () {
     return {
@@ -215,7 +224,6 @@ export default {
 
     chooseTemplate (template) {
       this.$emit('submitTemplateToParent', template)
-      this.getSidebar = true
     }
   }
 }
@@ -382,6 +390,10 @@ export default {
   align-items: center;
 }
 
+.imageform__body__templates {
+  position: relative
+}
+
 .imageform__body__template {
   cursor: pointer;
   border: 1px solid var(--color-blue);
@@ -397,6 +409,26 @@ export default {
 
   &:not(:last-child) {
     @include margin(0 1 0 0);
+  }
+}
+
+.imageform__body__loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-blue);
+  opacity: 0;
+  pointer-events: none;
+  background-color: white;
+
+  &.load {
+    opacity: 1;
+    pointer-events: initial;
   }
 }
 </style>
