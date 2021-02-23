@@ -76,7 +76,8 @@ export default {
               width: 1,
               height: 1,
               columns: '1/2',
-              rows: '1/2'
+              rows: '1/2',
+              padding: '1 1 1 1'
             }
           ],
           titles: {
@@ -98,7 +99,8 @@ export default {
               width: 2,
               height: 2,
               columns: '1/3',
-              rows: '1/3'
+              rows: '1/3',
+              padding: '1 1 1 1'
             }
           ],
           titles: {
@@ -120,7 +122,8 @@ export default {
               width: 3,
               height: 3,
               columns: '1/4',
-              rows: '2/5'
+              rows: '2/5',
+              padding: '1 1 1 1'
             }
           ],
           titles: {
@@ -130,6 +133,36 @@ export default {
           texts: {
             columns: '2/3',
             rows: '1/2'
+          }
+        },
+        {
+          name: 'template-004',
+          width: 3,
+          height: 3,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '1/3',
+              rows: '1/3',
+              padding: '1 0 1 1'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '3/4',
+              rows: '1/3',
+              padding: '1 1 1 0'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '3/4'
           }
         }
       ]

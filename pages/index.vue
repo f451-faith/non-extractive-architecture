@@ -22,7 +22,7 @@
       v-if="sidebar"
       :template="template"
     />
-    <canvas ref="canvas" />
+    <canvas v-for="(img, index) in images" :key="index" ref="canvas" />
   </main>
 </template>
 
@@ -44,10 +44,8 @@ export default {
       lumB: [],
       col1: [162, 185, 61],
       col2: [26, 54, 20],
-      canvasWidth: 1,
-      canvasHeight: 1,
       threshold: 120,
-      pixelSize: 2
+      pixelSize: 3
     }
   },
 
@@ -148,14 +146,14 @@ export default {
       return (mm / 25.4) * 96
     },
 
-    getImageDimensions () {
-      const image = this.template.images[0]
+    getImageDimensions (index) {
+      const image = this.template.images[index]
       const columns = image.width
       const rows = image.height
       const width = columns * 420 - 40 + (columns - 1) * 10
       const height = rows * 297 - 40 + (rows - 1) * 10
       const ratio = width / height
-      const imageRatio = this.images[0].ratio
+      const imageRatio = this.images[index].ratio
       let imageHeight = null
       let imageWidth = null
       if (ratio > imageRatio) {
@@ -172,21 +170,22 @@ export default {
     },
 
     setCanvas () {
-      const ctx = this.$refs.canvas.getContext('2d')
-      const image = this.images[0].image
-      this.resizeCanvas()
-      ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
-      ctx.drawImage(image, 0, 0, (this.canvasWidth / (window.devicePixelRatio * this.pixelSize)), (this.canvasWidth / (window.devicePixelRatio * this.pixelSize)) * image.height / image.width)
-      this.finalizeBitmap(ctx)
+      this.images.forEach((el, index) => {
+        const ctx = this.$refs.canvas[index].getContext('2d')
+        const image = el.image
+        const imageDimensions = this.getImageDimensions(index)
+        const canvasWidth = Math.round(this.getCanvasWidth(imageDimensions[0]))
+        const canvasHeight = Math.round(this.getCanvasHeight(imageDimensions[1]))
+        this.resizeCanvas(ctx, index, canvasWidth, canvasHeight)
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+        ctx.drawImage(image, 0, 0, (canvasWidth / (window.devicePixelRatio * this.pixelSize)), (canvasWidth / (window.devicePixelRatio * this.pixelSize)) * image.height / image.width)
+        this.finalizeBitmap(ctx, index, canvasWidth, canvasHeight)
+      })
     },
 
-    resizeCanvas () {
-      const imageDimensions = this.getImageDimensions()
-      this.canvasWidth = Math.round(this.getCanvasWidth(imageDimensions[0]))
-      this.canvasHeight = Math.round(this.getCanvasHeight(imageDimensions[1]))
-      this.$refs.canvas.setAttribute('width', this.canvasWidth)
-      this.$refs.canvas.setAttribute('height', this.canvasHeight)
-      const ctx = this.$refs.canvas.getContext('2d')
+    resizeCanvas (ctx, index, canvasWidth, canvasHeight) {
+      this.$refs.canvas[index].setAttribute('width', canvasWidth)
+      this.$refs.canvas[index].setAttribute('height', canvasHeight)
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio)
       ctx.imageSmoothingEnabled = false
       ctx.mozImageSmoothingEnabled = false
@@ -199,18 +198,18 @@ export default {
       }
     },
 
-    finalizeBitmap (ctx) {
-      const ditheredImage = this.monochrome(ctx.getImageData(0, 0, this.canvasWidth, this.canvasHeight), this.threshold)
+    finalizeBitmap (ctx, index, canvasWidth, canvasHeight) {
+      const ditheredImage = this.monochrome(ctx.getImageData(0, 0, canvasWidth, canvasHeight), this.threshold)
       createImageBitmap(ditheredImage).then((ditheredImageBmp) => {
-        ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
-        ctx.drawImage(ditheredImageBmp, 0, 0, this.canvasWidth / window.devicePixelRatio * this.pixelSize, this.canvasHeight / window.devicePixelRatio * this.pixelSize)
-        this.addToImageArray()
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight)
+        ctx.drawImage(ditheredImageBmp, 0, 0, canvasWidth / window.devicePixelRatio * this.pixelSize, canvasHeight / window.devicePixelRatio * this.pixelSize)
+        this.addToImageArray(index)
       })
     },
 
-    addToImageArray () {
-      const url = this.$refs.canvas.toDataURL('image/png')
-      this.images[0].ditheredImage = url
+    addToImageArray (index) {
+      const url = this.$refs.canvas[index].toDataURL('image/png')
+      this.images[index].ditheredImage = url
     }
   }
 }

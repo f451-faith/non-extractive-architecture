@@ -2,7 +2,7 @@
   <section class="sheets">
     <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template.name">
       <div v-if="images" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
-        <div v-for="(image, index) in images" :key="index" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows }" class="sheets__image">
+        <div v-for="(image, index) in images" :key="index" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
           <img :src="image.ditheredImage">
           <div class="sheets__image__number">
             {{ index + 1 }}
@@ -162,7 +162,6 @@ export default {
 }
 
 .sheets__image {
-  padding: var(--outside);
   position: relative;
 
   img {
@@ -172,8 +171,8 @@ export default {
 
 .sheets__image__number {
   position: absolute;
-  bottom: calc(var(--outside) + 10mm);
-  right: calc(var(--outside) + 10mm);
+  bottom: 10mm;
+  right: 10mm;
   line-height: 1;
 
   &:before {
