@@ -3,12 +3,21 @@
     <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template.name">
       <div v-if="displayedImages" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
         <div v-for="(image, index) in displayedImages" :key="index" :class="{ load: sheetsLoading }" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
+          <div v-if="template.name === 'template-001'" class="sheets__header sheets__header--image">
+            <div class="sheets__header__left">
+              <div class="sheets__title" v-html="md(formValue.title)" />
+              <div class="sheets__subtitle" v-html="md(formValue.subtitle)" />
+            </div>
+            <div class="sheets__header__right">
+              <div class="sheets__arrow" :class="{ down: template.arrow === 'down' }" />
+            </div>
+          </div>
           <img :src="image.ditheredImage">
           <div class="sheets__image__number">
             {{ index + 1 }}
           </div>
         </div>
-        <div class="sheets__titles" :style="{ gridColumn: template.titles.columns, gridRow: template.titles.rows }">
+        <div v-if="template.name !== 'template-001'" class="sheets__titles" :style="{ gridColumn: template.titles.columns, gridRow: template.titles.rows }">
           <div class="sheets__header">
             <div class="sheets__header__left">
               <div class="sheets__title" v-html="md(formValue.title)" />
@@ -25,8 +34,15 @@
           </div>
         </div>
         <div class="sheets__texts" :style="{ gridColumn: template.texts.columns, gridRow: template.texts.rows }">
-          <div v-if="formValue.text" class="sheets__text" lang="en" v-html="md(formValue.text)" />
-          <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it" v-html="md(italianTranslation)" />
+          <div>
+            <div v-if="formValue.text" class="sheets__text" lang="en" v-html="md(formValue.text)" />
+            <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it" v-html="md(italianTranslation)" />
+          </div>
+          <div v-if="template.name === 'template-001'" class="sheets__captions">
+            <div v-for="(caption, index) in formValue.caption" :key="index" class="sheets__caption">
+              <span class="sheets__caption__text" :style="{ '--number': index + 1 }" v-html="md(caption)" />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -243,12 +259,20 @@ export default {
 
 .sheets__texts {
   padding: var(--outside);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sheets__header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  &--image {
+    margin-bottom: var(--inside);
+    min-height: 2em;
+  }
 }
 
 .sheets__subtitle {

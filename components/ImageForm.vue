@@ -72,7 +72,7 @@ export default {
           name: 'template-001',
           width: 1,
           height: 2,
-          arrow: 'up',
+          arrow: 'down',
           images: [
             {
               width: 1,
