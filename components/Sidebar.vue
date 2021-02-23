@@ -59,8 +59,18 @@
             />
           </div>
         </div>
-        <div class="sidebar__form">
-          <div v-for="(image, index) in images" :key="index" class="sidebar__item">
+        <div v-for="(image, index) in baseImages" :key="index" class="sidebar__form">
+          <div v-if="baseImages.length > 1" class="sidebar__item">
+            <div class="sidebar__item__header">
+              <label :for="'select' + index">Image {{ index + 1 }}</label>
+            </div>
+            <select :name="'select' + index" @change="changeImageDisplayed(index, $event)">
+              <option v-for="(img, i) in baseImages" :key="i" :value="img.name.replace(/\.[^/.]+$/, '')" :selected="i === index">
+                {{ img.name }}
+              </option>
+            </select>
+          </div>
+          <div class="sidebar__item">
             <div class="sidebar__item__header">
               <label :for="'caption' + index">Caption image {{ index + 1 }}</label>
               <div class="sidebar__input__length" :class="{ error: formValue.caption[index].length >= 200 }">
@@ -92,7 +102,11 @@
 export default {
   name: 'Sidebar',
   props: {
-    images: {
+    baseImages: {
+      type: Array,
+      default: null
+    },
+    displayedImages: {
       type: Array,
       default: null
     },
@@ -134,6 +148,12 @@ export default {
           page.innerHTML = ''
         })
       })
+    },
+
+    changeImageDisplayed (index, event) {
+      const imageIndex = event.target.selectedIndex
+      this.displayedImages[index] = this.baseImages[imageIndex]
+      this.$emit('displayedImagesUpdate', this.displayedImages)
     }
   }
 }
@@ -174,6 +194,7 @@ export default {
   @include padding(1);
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 .sidebar__form {
@@ -206,6 +227,25 @@ export default {
     @include margin(0 0 2 0);
   }
 
+  select {
+    @include padding(1 10 1 4);
+    border: 1px solid var(--color-blue);
+    background-color: white;
+    color: var(--color-blue);
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url(~@/assets/images/arrow-s.svg);
+    background-repeat: no-repeat;
+    background-position-x: calc(100% - 20px);
+    background-position-y: center;
+    background-size: auto 50%;
+    cursor: pointer
+  }
+
   label {
     @include padding(1 4);
     border: 1px solid var(--color-grey);
@@ -223,6 +263,11 @@ export default {
     outline: none;
     width: 100%;
     resize: none;
+
+    &::placeholder {
+      color: var(--color-blue);
+      opacity: 0.25;
+    }
   }
 }
 

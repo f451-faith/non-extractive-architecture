@@ -1,8 +1,8 @@
 <template>
   <section class="sheets">
     <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template.name">
-      <div v-if="images" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
-        <div v-for="(image, index) in images" :key="index" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
+      <div v-if="displayedImages" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
+        <div v-for="(image, index) in displayedImages" :key="index" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
           <img :src="image.ditheredImage">
           <div class="sheets__image__number">
             {{ index + 1 }}
@@ -39,7 +39,11 @@ import marked from 'marked'
 export default {
   name: 'Sheets',
   props: {
-    images: {
+    baseImages: {
+      type: Array,
+      default: null
+    },
+    displayedImages: {
       type: Array,
       default: null
     },
@@ -56,14 +60,24 @@ export default {
   data () {
     return {
       sheetsHeight: 0,
-      windowHeight: window.innerHeight
+      sheetsWidth: 0,
+      windowHeight: window.innerHeight,
+      windowWidth: window.innerWidth - 420
     }
   },
 
   computed: {
     scaleSheets () {
       const sheetsHeight = this.sheetsHeight
-      const scale = (this.windowHeight - 20) / sheetsHeight
+      const sheetsWidth = this.sheetsWidth
+      const sheetsRatio = sheetsWidth / sheetsHeight
+      const windowRatio = this.windowWidth / this.windowHeight
+      let scale = null
+      if (sheetsRatio >= windowRatio) {
+        scale = (this.windowWidth - 40) / sheetsWidth
+      } else {
+        scale = (this.windowHeight - 20) / sheetsHeight
+      }
       return scale
     },
 
@@ -75,6 +89,7 @@ export default {
   mounted () {
     this.$nextTick(() => {
       this.sheetsHeight = this.$refs.sheets.clientHeight
+      this.sheetsWidth = this.$refs.sheets.clientWidth
       window.addEventListener('resize', this.onResize)
     })
   },
@@ -86,6 +101,7 @@ export default {
   methods: {
     onResize () {
       this.windowHeight = window.innerHeight
+      this.windowWidth = window.innerWidth - 420
     },
 
     md (str) {

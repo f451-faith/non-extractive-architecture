@@ -49,13 +49,6 @@
 export default {
   name: 'ImageForm',
 
-  props: {
-    images: {
-      type: Array,
-      default: null
-    }
-  },
-
   data () {
     return {
       imageNumber: null,

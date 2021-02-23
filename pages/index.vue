@@ -2,36 +2,46 @@
   <main class="container">
     <ImageForm
       v-if="!sidebar"
-      :images="images"
       @submitImagesToParent="submitImages"
       @submitTemplateToParent="submitTemplate"
     />
     <Sheets
       v-if="sidebar"
-      :images="images"
+      :key="componentKey"
+      :base-images="baseImages"
+      :displayed-images="displayedImages"
       :template="template"
       :form-value="formValue"
     />
     <Sidebar
       v-if="sidebar"
-      :images="images"
+      :base-images="baseImages"
+      :displayed-images="displayedImages"
       :form-value="formValue"
       @inputUpdate="formValue = formValue"
+      @displayedImagesUpdate="updateDisplayedImages"
     />
     <Print
       v-if="sidebar"
       :template="template"
     />
-    <canvas v-for="(img, index) in images" :key="index" ref="canvas" />
+    <canvas v-for="(img, index) in baseImages" :key="index" ref="canvas" />
+    <div class="loading" :class="{ active: loading }">
+      Processing your images…
+    </div>
   </main>
 </template>
 
 <script>
+import slugify from 'slugify'
+
 export default {
   data () {
     return {
       sidebar: false,
-      images: [],
+      componentKey: 0,
+      baseImages: [],
+      displayedImages: [],
       template: null,
       formValue: {
         title: '',
@@ -39,6 +49,7 @@ export default {
         text: '',
         caption: []
       },
+      loading: false,
       lumR: [],
       lumG: [],
       lumB: [],
@@ -58,33 +69,60 @@ export default {
 
     submitTemplate (templateFromForm) {
       this.template = templateFromForm
-      this.setCanvas()
+      this.loading = true
       setTimeout(() => {
-        this.sidebar = true
-      }, 300)
+        this.setCanvas()
+        setTimeout(() => {
+          this.sidebar = true
+          this.loading = false
+        }, 200)
+      }, 200)
+    },
+
+    updateDisplayedImages (displayedImages) {
+      this.displayedImages = displayedImages
+      this.loading = true
+      setTimeout(() => {
+        this.setCanvas()
+        this.componentKey += 1
+        setTimeout(() => {
+          this.loading = false
+        }, 200)
+      }, 200)
     },
 
     createImage (file) {
       const reader = new FileReader()
       const vm = this
 
+      reader.fileName = this.createFileName(file.name)
       reader.onload = (e) => {
         const image = new Image()
+        const name = reader.fileName
         image.src = e.target.result
         image.onload = function () {
           const ratio = image.width / image.height
-          vm.images.push({ image, ratio })
+          vm.baseImages.push({ name, image, ratio })
+          vm.displayedImages.push({ name, image, ratio })
           vm.updateCaptions()
         }
       }
       reader.readAsDataURL(file)
     },
 
+    createFileName (name) {
+      name = slugify(name, { lower: true })
+      const fileNameExtension = name.replace(/^.*[\\/]/, '')
+      const fileName = fileNameExtension.substring(0, fileNameExtension.lastIndexOf('.'))
+      const extension = fileNameExtension.split('.').pop()
+      const slugifiedFileName = slugify(fileName, { lower: true, strict: true }) + '.' + slugify(extension, { lower: true, strict: true })
+      return slugifiedFileName
+    },
+
     updateCaptions () {
       const arr = []
-      this.images.forEach((el) => {
-        arr.push('')
-      })
+      this.baseImages.forEach((el) => { arr.push('') })
+      this.displayedImages.forEach((el) => { arr.push('') })
       this.formValue.caption = arr
     },
 
@@ -153,7 +191,7 @@ export default {
       const width = columns * 420 - 40 + (columns - 1) * 10
       const height = rows * 297 - 40 + (rows - 1) * 10
       const ratio = width / height
-      const imageRatio = this.images[index].ratio
+      const imageRatio = this.displayedImages[index].ratio
       let imageHeight = null
       let imageWidth = null
       if (ratio > imageRatio) {
@@ -170,7 +208,7 @@ export default {
     },
 
     setCanvas () {
-      this.images.forEach((el, index) => {
+      this.displayedImages.forEach((el, index) => {
         const ctx = this.$refs.canvas[index].getContext('2d')
         const image = el.image
         const imageDimensions = this.getImageDimensions(index)
@@ -209,7 +247,7 @@ export default {
 
     addToImageArray (index) {
       const url = this.$refs.canvas[index].toDataURL('image/png')
-      this.images[index].ditheredImage = url
+      this.displayedImages[index].ditheredImage = url
     }
   }
 }
@@ -221,6 +259,35 @@ canvas {
   left: -9999px;
   opacity: 0;
   z-index: -9999;
+
+  @include print {
+    display: none
+  }
+}
+
+.loading {
+  @extend .transition, .font-display;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: var(--color-blue);
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10vw;
+  user-select: none;
+  color: white;
+  line-height: 0.8;
+  text-align: center;
+
+  &.active {
+    opacity: 1;
+    pointer-events: initial;
+  }
 
   @include print {
     display: none
