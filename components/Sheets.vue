@@ -12,9 +12,11 @@
               <div class="sheets__arrow" :class="{ down: template.arrow === 'down' }" />
             </div>
           </div>
-          <img :src="image.ditheredImage">
-          <div class="sheets__image__number">
-            {{ index + 1 }}
+          <div class="sheets__image__container">
+            <img :class="{ contain: displayedImages.length === 1 && formatImage == 'contain'}" :src="image.ditheredImage">
+            <div class="sheets__image__number">
+              {{ index + 1 }}
+            </div>
           </div>
         </div>
         <div v-if="template.name !== 'template-001'" class="sheets__titles" :style="{ gridColumn: template.titles.columns, gridRow: template.titles.rows }">
@@ -70,6 +72,10 @@ export default {
     formValue: {
       type: Object,
       default: null
+    },
+    formatImage: {
+      type: String,
+      default: 'cover'
     },
     sheetsLoading: {
       type: Boolean,
@@ -199,9 +205,19 @@ export default {
 
 .sheets__image {
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   img {
     @extend .cover;
+
+    &.contain {
+      object-fit: initial;
+      max-height: 100%;
+      max-width: 100%;
+      width: auto;
+      height: auto;
+    }
   }
 
   &.load {
@@ -221,10 +237,17 @@ export default {
   }
 }
 
+.sheets__image__container {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
 .sheets__image__number {
   position: absolute;
-  bottom: 10mm;
-  right: 10mm;
+  top: 10mm;
+  left: 10mm;
   line-height: 1;
   display: flex;
   align-items: center;

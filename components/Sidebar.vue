@@ -9,12 +9,13 @@
         <div class="sidebar__form">
           <div class="sidebar__item">
             <div class="sidebar__item__header">
-              <label for="title">Title</label>
+              <label class="sidebar__item__label" for="title">Title</label>
               <div class="sidebar__input__length" :class="{ error: formValue.title.length >= 100 }">
                 <span>{{ formValue.title.length }}</span><span>100</span>
               </div>
             </div>
             <textarea
+              id="title"
               v-model="formValue.title"
               class="sidebar__input__area"
               name="title"
@@ -26,12 +27,13 @@
           </div>
           <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
             <div class="sidebar__item__header">
-              <label for="subtitle">Subtitle</label>
+              <label class="sidebar__item__label" for="subtitle">Subtitle</label>
               <div class="sidebar__input__length" :class="{ error: formValue.subtitle.length >= 100 }">
                 <span>{{ formValue.subtitle.length }}</span><span>100</span>
               </div>
             </div>
             <textarea
+              id="subtitle"
               v-model="formValue.subtitle"
               class="sidebar__input__area"
               name="subtitle"
@@ -43,12 +45,13 @@
           </div>
           <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 }">
             <div class="sidebar__item__header">
-              <label for="text_english">Your text</label>
+              <label class="sidebar__item__label" for="text_english">Your text</label>
               <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 400 }">
                 <span>{{ formValue.text.length }}</span><span>400</span>
               </div>
             </div>
             <textarea
+              id="text_english"
               v-model="formValue.text"
               class="sidebar__input__area"
               name="text_english"
@@ -62,22 +65,53 @@
         <div v-for="(image, index) in baseImages" :key="index" class="sidebar__form">
           <div v-if="baseImages.length > 1" class="sidebar__item">
             <div class="sidebar__item__header">
-              <label :for="'select' + index">Image {{ index + 1 }}</label>
+              <label class="sidebar__item__label" :for="'select' + index">Image {{ index + 1 }}</label>
             </div>
-            <select :name="'select' + index" :class="{ load: sheetsLoading }" @change="changeImageDisplayed(index, $event)">
+            <select :id="'select' + index" :name="'select' + index" :class="{ load: sheetsLoading }" @change="changeImageDisplayed(index, $event)">
               <option v-for="(img, i) in baseImages" :key="i" :value="img.name.replace(/\.[^/.]+$/, '')" :selected="i === index">
                 {{ img.name }}
               </option>
             </select>
           </div>
+          <div v-else class="sidebar__item">
+            <div class="sidebar__item__header">
+              <div class="sidebar__item__label">
+                Image {{ index + 1 }}
+              </div>
+            </div>
+            <div class="sidebar__radio">
+              <div>
+                <input
+                  id="cover-fill"
+                  type="radio"
+                  name="cover"
+                  value="cover"
+                  checked
+                  @change="formatImage"
+                >
+                <label for="cover-fill">Fill</label>
+              </div>
+              <div>
+                <input
+                  id="cover-fit"
+                  type="radio"
+                  name="cover"
+                  value="contain"
+                  @change="formatImage"
+                >
+                <label for="cover-fit">Fit</label>
+              </div>
+            </div>
+          </div>
           <div class="sidebar__item">
             <div class="sidebar__item__header">
-              <label :for="'caption' + index">Caption image {{ index + 1 }}</label>
+              <label class="sidebar__item__label" :for="'caption' + index">Caption image {{ index + 1 }}</label>
               <div class="sidebar__input__length" :class="{ error: formValue.caption[index].length >= 200 }">
                 <span>{{ formValue.caption[index].length }}</span><span>200</span>
               </div>
             </div>
             <textarea
+              :id="'caption' + index"
               v-model="formValue.caption[index]"
               class="sidebar__input__area"
               :name="'caption' + index"
@@ -158,6 +192,10 @@ export default {
       const imageIndex = event.target.selectedIndex
       this.displayedImages[index] = this.baseImages[imageIndex]
       this.$emit('displayedImagesUpdate', this.displayedImages)
+    },
+
+    formatImage (event) {
+      this.$emit('formatImageUpdate', event.target.value)
     }
   }
 }
@@ -256,14 +294,6 @@ export default {
     }
   }
 
-  label {
-    @include padding(1 4);
-    border: 1px solid var(--color-grey);
-    background-color: var(--color-grey);
-    color: var(--color-darkgrey);
-    border-radius: 5px;
-  }
-
   textarea {
     @include padding(1 4);
     background-color: white;
@@ -287,6 +317,14 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+}
+
+.sidebar__item__label {
+  @include padding(1 4);
+  border: 1px solid var(--color-grey);
+  background-color: var(--color-grey);
+  color: var(--color-darkgrey);
+  border-radius: 5px;
 }
 
 .sidebar__input__length {
@@ -314,6 +352,44 @@ export default {
         @include margin(0 1 0 0);
         content: '<';
       }
+    }
+  }
+}
+
+.sidebar__radio {
+  display: flex;
+  width: 100%;
+  border: 1px solid var(--color-grey);
+  background-color: white;
+  color: var(--color-darkgrey);
+  border-radius: 5px;
+
+  & > div {
+    flex: 1;
+    border-radius: 5px;
+    display: flex;
+    position: relative;
+
+    input {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      appearance: none;
+      outline: none;
+      cursor: pointer;
+
+      &:checked + label {
+        background: var(--color-blue);
+        color: white
+      }
+    }
+
+    label {
+      @include padding(1.2 4);
+      width: 100%;
+      border-radius: 5px;
     }
   }
 }
