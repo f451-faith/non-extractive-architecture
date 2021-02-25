@@ -237,6 +237,10 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .sidebar__form {
