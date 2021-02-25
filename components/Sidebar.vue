@@ -27,7 +27,7 @@
           </div>
           <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
             <div class="sidebar__item__header">
-              <label class="sidebar__item__label" for="subtitle">Subtitle</label>
+              <label class="sidebar__item__label" for="subtitle">Subtitle/Author</label>
               <div class="sidebar__input__length" :class="{ error: formValue.subtitle.length >= 100 }">
                 <span>{{ formValue.subtitle.length }}</span><span>100</span>
               </div>

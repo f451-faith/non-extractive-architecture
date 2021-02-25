@@ -20,13 +20,13 @@
           </div>
         </div>
         <div v-if="template.name !== 'template-001'" class="sheets__titles" :style="{ gridColumn: template.titles.columns, gridRow: template.titles.rows }">
-          <div class="sheets__header">
+          <div class="sheets__header" :class="{ invert: template.arrow === 'left'}">
             <div class="sheets__header__left">
               <div class="sheets__title" v-html="md(formValue.title)" />
               <div class="sheets__subtitle" v-html="md(formValue.subtitle)" />
             </div>
             <div v-if="formValue.title.length > 0" class="sheets__header__right">
-              <div class="sheets__arrow" :class="{ down: template.arrow === 'down' }" />
+              <div class="sheets__arrow" :class="template.arrow" />
             </div>
           </div>
           <div class="sheets__captions">
@@ -274,10 +274,6 @@ export default {
   flex-direction: column;
   justify-content: space-between;
   word-break: break-word;
-
-  p {
-    white-space: pre;
-  }
 }
 
 .sheets__texts {
@@ -298,6 +294,16 @@ export default {
   }
 }
 
+.sheets__header__left {
+  margin-right: var(--outside);
+
+  .sheets__header.invert & {
+    margin-right: 0;
+    margin-left: var(--outside);
+    order: 1;
+  }
+}
+
 .sheets__subtitle {
   color: var(--color-subtitle)
 }
@@ -315,12 +321,20 @@ export default {
 }
 
 .sheets__arrow {
-  &:before {
-    content: '';
+  &.up:before {
+    content: '';
   }
 
   &.down:before {
-    content: '';
+    content: '';
+  }
+
+  &.left:before {
+    content: '';
+  }
+
+  &.right:before {
+    content: '';
   }
 }
 

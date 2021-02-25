@@ -55,6 +55,10 @@ export default {
     formLoading: {
       type: Boolean,
       default: false
+    },
+    baseImages: {
+      type: Array,
+      default: null
     }
   },
 
@@ -73,6 +77,7 @@ export default {
           width: 1,
           height: 2,
           arrow: 'down',
+          orientation: 'landscape',
           images: [
             {
               width: 1,
@@ -96,6 +101,7 @@ export default {
           width: 2,
           height: 3,
           arrow: 'up',
+          orientation: 'landscape',
           images: [
             {
               width: 2,
@@ -119,6 +125,7 @@ export default {
           width: 3,
           height: 4,
           arrow: 'down',
+          orientation: 'landscape',
           images: [
             {
               width: 3,
@@ -142,6 +149,7 @@ export default {
           width: 3,
           height: 3,
           arrow: 'up',
+          orientation: null,
           images: [
             {
               width: 2,
@@ -166,6 +174,30 @@ export default {
             columns: '2/3',
             rows: '3/4'
           }
+        },
+        {
+          name: 'template-005',
+          width: 2,
+          height: 2,
+          arrow: 'left',
+          orientation: 'portrait',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '1/2',
+              rows: '1/3',
+              padding: '1 1 1 1'
+            }
+          ],
+          titles: {
+            columns: '2/3',
+            rows: '1/2'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '2/3'
+          }
         }
       ]
     }
@@ -174,7 +206,19 @@ export default {
   computed: {
     filteredTemplates () {
       const numberOfImages = this.imageNumber
-      return this.templates.filter(t => t.images.length === numberOfImages)
+      if (numberOfImages > 1) {
+        return this.templates.filter(t => t.images.length === numberOfImages)
+      } else {
+        return this.templates.filter((t) => {
+          if (this.baseImages[0].ratio < 1) {
+            return t.images.length === numberOfImages && t.orientation === 'portrait'
+          } else if (this.baseImages[0].ratio > 1) {
+            return t.images.length === numberOfImages && t.orientation === 'landscape'
+          } else {
+            return t.images.length === numberOfImages
+          }
+        })
+      }
     }
   },
 

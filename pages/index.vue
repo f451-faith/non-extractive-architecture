@@ -3,6 +3,7 @@
     <ImageForm
       v-if="!sidebar"
       :form-loading="formLoading"
+      :base-images="baseImages"
       @submitImagesToParent="submitImages"
       @submitTemplateToParent="submitTemplate"
     />
