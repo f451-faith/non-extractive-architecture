@@ -154,12 +154,6 @@ export default {
     }
   },
 
-  watch: {
-    formValue () {
-      this.$emit('inputUpdate', this.formValue)
-    }
-  },
-
   methods: {
     autogrow (event) {
       const el = event.target

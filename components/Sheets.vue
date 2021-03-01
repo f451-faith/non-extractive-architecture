@@ -38,7 +38,7 @@
         <div class="sheets__texts" :style="{ gridColumn: template.texts.columns, gridRow: template.texts.rows }">
           <div>
             <div v-if="formValue.text" class="sheets__text" lang="en" v-html="md(formValue.text)" />
-            <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it" v-html="md(italianTranslation)" />
+            <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it" v-html="italianString" />
           </div>
           <div v-if="template.name === 'template-001'" class="sheets__captions">
             <div v-for="(caption, index) in formValue.caption" :key="index" class="sheets__caption">
@@ -53,6 +53,7 @@
 
 <script>
 import marked from 'marked'
+import { debounce } from 'debounce'
 
 export default {
   name: 'Sheets',
@@ -88,7 +89,13 @@ export default {
       sheetsHeight: 0,
       sheetsWidth: 0,
       windowHeight: window.innerHeight,
-      windowWidth: window.innerWidth - 420
+      windowWidth: window.innerWidth - 420,
+      italianString: '',
+      italianText: {
+        title: '',
+        subtitle: '',
+        text: ''
+      }
     }
   },
 
@@ -105,11 +112,20 @@ export default {
         scale = (this.windowHeight - 20) / sheetsHeight
       }
       return scale
-    },
-
-    italianTranslation () {
-      return this.formValue.title + '\r\r' + this.formValue.subtitle + '\r\r' + this.formValue.text
     }
+  },
+
+  watch: {
+    formValue: {
+      handler () {
+        this.debouncedGetTranslation()
+      },
+      deep: true
+    }
+  },
+
+  created () {
+    this.debouncedGetTranslation = debounce(this.getItalianTranslation, 300)
   },
 
   mounted () {
@@ -132,6 +148,22 @@ export default {
 
     md (str) {
       return marked(str)
+    },
+
+    async getItalianTranslation () {
+      const titleEN = encodeURI(this.formValue.title)
+      const subtitleEN = encodeURI(this.formValue.subtitle)
+      const textEN = encodeURI(this.formValue.text)
+      const deepl = await this.$axios.$get(`https://api.deepl.com/v2/translate?auth_key=4430afb5-ae5b-090d-8bf0-cec1abd97303&text=${titleEN}&text=${subtitleEN}&text=${textEN}&target_lang=it&source_lang=en&preserve_formatting=1`)
+      const titleIT = deepl.translations[0].text
+      const subtitleIT = deepl.translations[1].text
+      const textIT = deepl.translations[2].text
+      this.italianText = {
+        title: titleIT,
+        subtitle: subtitleIT,
+        text: textIT
+      }
+      this.italianString = this.md(this.italianText.title + '\r\r' + this.italianText.subtitle + '\r\r' + this.italianText.text)
     }
   }
 }
