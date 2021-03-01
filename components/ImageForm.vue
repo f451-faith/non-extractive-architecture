@@ -77,14 +77,14 @@ export default {
           width: 1,
           height: 2,
           arrow: 'down',
-          orientation: 'landscape',
           images: [
             {
               width: 1,
               height: 1,
               columns: '1/2',
               rows: '1/2',
-              padding: '1 1 1 1'
+              padding: '1 1 1 1',
+              orientation: 'landscape'
             }
           ],
           titles: {
@@ -101,14 +101,14 @@ export default {
           width: 2,
           height: 3,
           arrow: 'up',
-          orientation: 'landscape',
           images: [
             {
               width: 2,
               height: 2,
               columns: '1/3',
               rows: '1/3',
-              padding: '1 1 1 1'
+              padding: '1 1 1 1',
+              orientation: 'landscape'
             }
           ],
           titles: {
@@ -125,14 +125,14 @@ export default {
           width: 3,
           height: 4,
           arrow: 'down',
-          orientation: 'landscape',
           images: [
             {
               width: 3,
               height: 3,
               columns: '1/4',
               rows: '2/5',
-              padding: '1 1 1 1'
+              padding: '1 1 1 1',
+              orientation: 'landscape'
             }
           ],
           titles: {
@@ -149,21 +149,22 @@ export default {
           width: 3,
           height: 3,
           arrow: 'up',
-          orientation: null,
           images: [
             {
               width: 2,
               height: 2,
               columns: '1/3',
               rows: '1/3',
-              padding: '1 0 1 1'
+              padding: '1 0 1 1',
+              orientation: 'landscape'
             },
             {
               width: 1,
               height: 2,
               columns: '3/4',
               rows: '1/3',
-              padding: '1 1 1 0'
+              padding: '1 1 1 0',
+              orientation: 'portrait'
             }
           ],
           titles: {
@@ -180,14 +181,14 @@ export default {
           width: 2,
           height: 2,
           arrow: 'left',
-          orientation: 'portrait',
           images: [
             {
               width: 1,
               height: 2,
               columns: '1/2',
               rows: '1/3',
-              padding: '1 1 1 1'
+              padding: '1 1 1 1',
+              orientation: 'portrait'
             }
           ],
           titles: {
@@ -205,20 +206,23 @@ export default {
 
   computed: {
     filteredTemplates () {
-      const numberOfImages = this.imageNumber
-      if (numberOfImages > 1) {
-        return this.templates.filter(t => t.images.length === numberOfImages)
-      } else {
-        return this.templates.filter((t) => {
-          if (this.baseImages[0].ratio < 1) {
-            return t.images.length === numberOfImages && t.orientation === 'portrait'
-          } else if (this.baseImages[0].ratio > 1) {
-            return t.images.length === numberOfImages && t.orientation === 'landscape'
-          } else {
-            return t.images.length === numberOfImages
-          }
+      const images = this.baseImages
+      const ratios = []
+      images.forEach((img) => {
+        if (img.ratio < 1) { ratios.push('portrait') }
+        if (img.ratio >= 1) { ratios.push('landscape') }
+      })
+      return this.templates.filter((t) => {
+        const imagesTemplate = t.images
+        const ratiosTemplate = []
+        imagesTemplate.forEach((img) => {
+          ratiosTemplate.push(img.orientation)
         })
-      }
+        const ratiosTemplateSorted = ratiosTemplate.slice().sort()
+        return ratios.length === ratiosTemplateSorted.length && ratios.slice().sort().every(function (value, index) {
+          return value === ratiosTemplateSorted[index]
+        })
+      })
     }
   },
 

@@ -194,7 +194,8 @@ export default {
     },
 
     getImageDimensions (index) {
-      const image = this.template.images[index]
+      const images = this.template.images.sort((a, b) => a.orientation.localeCompare(b.orientation))
+      const image = images[index]
       const columns = image.width
       const rows = image.height
       const width = columns * 420 - 40 + (columns - 1) * 10
@@ -217,7 +218,8 @@ export default {
     },
 
     setCanvas () {
-      this.displayedImages.forEach((el, index) => {
+      const images = this.displayedImages.sort((a, b) => b.ratio - a.ratio)
+      images.forEach((el, index) => {
         const ctx = this.$refs.canvas[index].getContext('2d')
         const image = el.image
         const imageDimensions = this.getImageDimensions(index)
