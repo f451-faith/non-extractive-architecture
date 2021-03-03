@@ -61,7 +61,7 @@ export default {
       col1: [162, 185, 61],
       col2: [26, 54, 20],
       threshold: 120,
-      pixelSize: 4
+      pixelSize: 3
     }
   },
 
