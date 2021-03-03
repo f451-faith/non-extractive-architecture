@@ -267,9 +267,9 @@ export default {
 <style lang="scss">
 canvas {
   position: absolute;
-  left: -9999px;
+  left: -99999px;
   opacity: 0;
-  z-index: -9999;
+  z-index: -99999;
 
   @include print {
     display: none
