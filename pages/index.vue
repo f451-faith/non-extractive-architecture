@@ -32,6 +32,7 @@
       :template="template"
     />
     <canvas v-for="(img, index) in baseImages" :key="index" ref="canvas" />
+    <Footer />
   </main>
 </template>
 

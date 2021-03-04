@@ -199,7 +199,7 @@ export default {
 .sidebar {
   @include padding(2);
   position: fixed;
-  max-height: 100vh;
+  max-height: calc(100vh - 2em - 20px);
   display: flex;
   right: 0;
   top: 0;
