@@ -5,7 +5,8 @@
       :form-loading="formLoading"
       :base-images="baseImages"
       @submitImagesToParent="submitImages"
-      @submitTemplateToParent="submitTemplate"
+      @submitImageTemplateToParent="submitImageTemplate"
+      @submitTextTemplateToParent="submitTextTemplate"
     />
     <Sheets
       v-if="sidebar"
@@ -73,7 +74,14 @@ export default {
       })
     },
 
-    submitTemplate (templateFromForm) {
+    submitTextTemplate (templateFromForm) {
+      this.template = templateFromForm
+      setTimeout(() => {
+        this.sidebar = true
+      }, 200)
+    },
+
+    submitImageTemplate (templateFromForm) {
       this.template = templateFromForm
       this.formLoading = true
       setTimeout(() => {

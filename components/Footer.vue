@@ -26,6 +26,12 @@ export default {
 </script>
 
 <style lang="scss">
+.footer {
+  @include print {
+    display: none;
+  }
+}
+
 .footer__inner {
   @extend .transition;
   position: fixed;

@@ -1,7 +1,7 @@
 <template>
   <section class="sheets">
     <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template.name">
-      <div v-if="displayedImages" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
+      <div v-if="displayedImages && baseImages.length > 0" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
         <div v-for="(image, index) in displayedImages" :key="index" :class="{ load: sheetsLoading }" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
           <div v-if="template.name === 'template-001'" class="sheets__header sheets__header--image">
             <div class="sheets__header__left">
@@ -46,6 +46,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div v-else class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height, '--size': template.fontSize }">
+        <div class="sheets__text__item" lang="en" v-html="md(formValue.text)" />
       </div>
     </div>
   </section>
@@ -392,5 +395,13 @@ export default {
       color: var(--color-subtitle)
     }
   }
+}
+
+.sheets__text__item {
+  word-break: break-word;
+  margin: var(--outside);
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  font-size: var(--size);
 }
 </style>

@@ -70,7 +70,7 @@ export default {
 .print__page {
   display: flex;
   width: 420mm;
-  height: calc(297mm - 1.5px);
+  height: calc(297mm - 0.5px);
   overflow: hidden;
 }
 

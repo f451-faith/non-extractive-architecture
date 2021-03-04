@@ -7,7 +7,7 @@
       </div>
       <div class="sidebar__body">
         <div class="sidebar__form">
-          <div class="sidebar__item">
+          <div v-if="baseImages.length > 0" class="sidebar__item">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" for="title">Title</label>
               <div class="sidebar__input__length" :class="{ error: formValue.title.length >= 100 }">
@@ -25,7 +25,7 @@
               @focus="autogrow"
             />
           </div>
-          <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
+          <div v-if="baseImages.length > 0" class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" for="subtitle">Subtitle/Author</label>
               <div class="sidebar__input__length" :class="{ error: formValue.subtitle.length >= 100 }">
@@ -43,7 +43,7 @@
               @focus="autogrow"
             />
           </div>
-          <div class="sidebar__item" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 }">
+          <div v-if="baseImages.length > 0" class="sidebar__item" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 }">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" for="text_english">Your text</label>
               <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 400 }">
@@ -56,6 +56,24 @@
               class="sidebar__input__area"
               name="text_english"
               maxlength="400"
+              rows="2"
+              @input="autogrow"
+              @focus="autogrow"
+            />
+          </div>
+          <div v-if="baseImages.length === 0" class="sidebar__item">
+            <div class="sidebar__item__header">
+              <label class="sidebar__item__label" for="text_english">Your text</label>
+              <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 500 }">
+                <span>{{ formValue.text.length }}</span><span>500</span>
+              </div>
+            </div>
+            <textarea
+              id="text_english"
+              v-model="formValue.text"
+              class="sidebar__input__area"
+              name="text_english"
+              maxlength="500"
               rows="2"
               @input="autogrow"
               @focus="autogrow"
@@ -123,7 +141,7 @@
           </div>
         </div>
         <div class="sidebar__form">
-          <button class="sidebar__button" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 || formValue.text.length === 0 }" @click.prevent="printSheets">
+          <button class="sidebar__button" :class="{ disabled: (baseImages.length > 0 && (formValue.title.length === 0 || formValue.subtitle.length === 0 || formValue.text.length === 0)) || (baseImages.length === 0 && formValue.text.length === 0) }" @click.prevent="printSheets">
             Print the composition
           </button>
         </div>
@@ -151,6 +169,10 @@ export default {
     sheetsLoading: {
       type: Boolean,
       default: false
+    },
+    templateType: {
+      type: String,
+      default: 'image'
     }
   },
 
@@ -345,7 +367,7 @@ export default {
       @include margin(0 1 0 0);
     }
 
-    &:last-child {
+    &:last-child:not(:first-child) {
       &:before {
         @include margin(0 1 0 0);
         content: '<';
