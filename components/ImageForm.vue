@@ -3,7 +3,7 @@
     <div class="imageform__inner">
       <div class="imageform__header">
         <h1>Non-Extractive Architecture</h1>
-        <h2>Research Software</h2>
+        <h2>Exhibition Format Editor</h2>
       </div>
       <div class="imageform__body">
         <div class="imageform__body__inner js-imageFormBodyInner" :class="{ inactive: bodyInnerInactive }">
@@ -592,7 +592,7 @@ export default {
 }
 
 .imageform__inner {
-  width: 400px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 0px 10px 0px rgba(0,0,255,0.25);

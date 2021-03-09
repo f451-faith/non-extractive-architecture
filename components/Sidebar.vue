@@ -3,7 +3,7 @@
     <div class="sidebar__inner">
       <div class="sidebar__header">
         <h1>Non-Extractive Architecture</h1>
-        <h2>Research Software</h2>
+        <h2>Exhibition Format Editor</h2>
       </div>
       <div class="sidebar__body">
         <div class="sidebar__form">
@@ -232,7 +232,7 @@ export default {
 }
 
 .sidebar__inner {
-  width: 400px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   box-shadow: 0px 0px 10px 0px rgba(0,0,255,0.25);

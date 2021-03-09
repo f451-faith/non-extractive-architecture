@@ -92,7 +92,7 @@ export default {
       sheetsHeight: 0,
       sheetsWidth: 0,
       windowHeight: window.innerHeight,
-      windowWidth: window.innerWidth - 420,
+      windowWidth: window.innerWidth - 470,
       italianString: '',
       italianText: {
         title: '',
@@ -146,7 +146,7 @@ export default {
   methods: {
     onResize () {
       this.windowHeight = window.innerHeight
-      this.windowWidth = window.innerWidth - 420
+      this.windowWidth = window.innerWidth - 470
     },
 
     md (str) {
