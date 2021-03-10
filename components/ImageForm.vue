@@ -1988,7 +1988,7 @@ export default {
 .imageform__body__template {
   @include margin(0.5);
   cursor: pointer;
-  border: 1px solid var(--color-blue);
+  border: 1px solid var(--color-grey);
   border-radius: 5px;
   height: 70px;
   display: flex;
@@ -2005,8 +2005,7 @@ export default {
   }
 
   &:hover {
-    background-color: var(--color-blue);
-    color: white;
+    border-color: var(--color-blue);
   }
 }
 

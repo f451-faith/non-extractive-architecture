@@ -247,11 +247,10 @@ export default {
     @extend .cover;
 
     &.contain {
-      object-fit: initial;
-      max-height: 100%;
-      max-width: 100%;
-      width: auto;
-      height: auto;
+      object-fit: contain;
+      object-position: top left;
+      width: 100%;
+      height: 100%;
     }
   }
 
