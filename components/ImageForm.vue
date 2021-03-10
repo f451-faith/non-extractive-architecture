@@ -375,7 +375,7 @@ export default {
         },
         {
           name: 'V4-1-R',
-          width: 2,
+          width: 3,
           height: 4,
           arrow: 'right',
           images: [
@@ -539,7 +539,7 @@ export default {
               height: 1,
               columns: '2/3',
               rows: '1/2',
-              padding: '1 0 1 1',
+              padding: '1 0 0 1',
               orientation: 'landscape'
             },
             {
@@ -603,7 +603,7 @@ export default {
               height: 1,
               columns: '1/2',
               rows: '1/2',
-              padding: '1 0 1 1',
+              padding: '1 0 0 1',
               orientation: 'landscape'
             },
             {
@@ -625,7 +625,7 @@ export default {
           }
         },
         {
-          name: 'HV2-3-R',
+          name: 'HV3-3-R',
           width: 2,
           height: 3,
           arrow: 'right',
@@ -699,7 +699,7 @@ export default {
               height: 2,
               columns: '1/3',
               rows: '1/3',
-              padding: '1 0 1 1',
+              padding: '1 0 0 1',
               orientation: 'landscape'
             },
             {
@@ -740,7 +740,7 @@ export default {
               height: 2,
               columns: '2/3',
               rows: '3/5',
-              padding: '0 1 1 1',
+              padding: '0 0 1 1',
               orientation: 'portrait'
             }
           ],
@@ -797,7 +797,7 @@ export default {
               height: 3,
               columns: '1/4',
               rows: '1/4',
-              padding: '1 0 1 1',
+              padding: '1 0 0 1',
               orientation: 'landscape'
             },
             {
@@ -837,7 +837,7 @@ export default {
               height: 2,
               columns: '1/2',
               rows: '3/5',
-              padding: '0 1 1 1',
+              padding: '0 0 1 1',
               orientation: 'portrait'
             }
           ],
@@ -902,7 +902,7 @@ export default {
               height: 5,
               columns: '5/8',
               rows: '1/6',
-              padding: '1 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'portrait'
             }
           ],
@@ -935,7 +935,7 @@ export default {
               height: 3,
               columns: '2/4',
               rows: '4/7',
-              padding: '0 1 1 1',
+              padding: '0 0 1 1',
               orientation: 'portrait'
             }
           ],
@@ -1066,7 +1066,7 @@ export default {
               height: 2,
               columns: '3/4',
               rows: '1/3',
-              padding: '1 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'portrait'
             }
           ],
@@ -1097,7 +1097,7 @@ export default {
               width: 1,
               height: 2,
               columns: '2/3',
-              rows: '3/4',
+              rows: '3/5',
               padding: '0 1 1 1',
               orientation: 'portrait'
             }
@@ -1163,7 +1163,7 @@ export default {
               height: 3,
               columns: '3/5',
               rows: '1/4',
-              padding: '1 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'portrait'
             }
           ],
@@ -1227,7 +1227,7 @@ export default {
               height: 5,
               columns: '5/8',
               rows: '1/6',
-              padding: '1 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'portrait'
             }
           ],
@@ -1361,7 +1361,7 @@ export default {
               height: 1,
               columns: '4/5',
               rows: '1/2',
-              padding: '1 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'landscape'
             }
           ],
@@ -1460,7 +1460,7 @@ export default {
               height: 1,
               columns: '3/4',
               rows: '1/2',
-              padding: '1 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'landscape'
             }
           ],
@@ -1526,7 +1526,7 @@ export default {
               height: 2,
               columns: '4/6',
               rows: '1/3',
-              padding: '1 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'landscape'
             }
           ],
@@ -1557,8 +1557,8 @@ export default {
             {
               width: 2,
               height: 2,
-              columns: '3/5',
-              rows: '2/4',
+              columns: '2/4',
+              rows: '3/5',
               padding: '0 1 1 1',
               orientation: 'landscape'
             }
