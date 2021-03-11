@@ -9,7 +9,8 @@
     "generate": "DEPLOY_ENV=GH_PAGES nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint": "npm run lint:js",
-    "deploy": "gh-pages -d dist -t true"
+    "deploy": "gh-pages -d dist -t true",
+    "live": "npm run build && npm run generate && npm run deploy"
   },
   "dependencies": {
     "@nuxt/content": "^1.11.1",
