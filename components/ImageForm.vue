@@ -23,7 +23,7 @@
                 multiple
                 @change="displayImageName"
               >
-              <label for="images" class="imageform__label js-imageFormInputLabel">Upload between 1 and 4 image(s)</label>
+              <label for="images" class="imageform__label js-imageFormInputLabel">Upload between 1 and 3 image(s)</label>
             </div>
             <div v-if="showImageSubmit" class="imageform__submit js-imageFormSubmit">
               <input type="submit" name="submit" value="Create the composition">
@@ -1736,6 +1736,178 @@ export default {
             columns: '1/2',
             rows: '6/7'
           }
+        },
+
+        // HHH - Three Images - Horizontal, Horizontal, Horizontal
+
+        {
+          name: 'HHH6-6-R',
+          width: 3,
+          height: 6,
+          arrow: 'right',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '1/3',
+              padding: '1 1 0 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '3/5',
+              padding: '0 1 0 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '5/7',
+              padding: '0 1 1 1',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '6/7'
+          }
+        },
+
+        // VVV - Three Images - Vertical, Vertical, Vertical
+
+        {
+          name: 'VVV5-1-U',
+          width: 6,
+          height: 5,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 4,
+              columns: '1/3',
+              rows: '1/4',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 4,
+              columns: '3/5',
+              rows: '1/5',
+              padding: '1 0 1 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 4,
+              columns: '5/7',
+              rows: '1/5',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '5/6'
+          }
+        },
+
+        // - Three Images - Horizontal, Vertical, Vertical
+
+        {
+          name: 'HVV4-2-U',
+          width: 6,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 3,
+              columns: '1/3',
+              rows: '1/4',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '2/4',
+              padding: '0 0 1 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '5/7',
+              rows: '1/4',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '4/5'
+          }
+        },
+
+        // - Three Images - Horizontal, Horizontal, Vertical
+
+        {
+          name: 'HHV4-1-U',
+          width: 6,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '1/3',
+              rows: '2/4',
+              padding: '1 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '3/5',
+              rows: '1/4',
+              padding: '0 0 1 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '5/7',
+              rows: '2/4',
+              padding: '1 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '4/5'
+          }
         }
       ]
     }
@@ -1779,16 +1951,16 @@ export default {
 
     displayImageName (event) {
       let fileName = ''
-      if (event.target.files && event.target.files.length > 4) {
+      if (event.target.files && event.target.files.length > 3) {
         document.querySelector('.js-imageFormBodyForm').reset()
-        fileName = 'Please select 4 images or less'
+        fileName = 'Please select 3 images or less'
       } else if (event.target.files && event.target.files.length > 1) {
         fileName = event.target.files.length + ' files selected'
       } else if (event.target.value) {
         fileName = event.target.value.split('\\').pop()
       }
 
-      const labelVal = fileName || 'Upload between 1 and 4 image(s)'
+      const labelVal = fileName || 'Upload between 1 and 3 image(s)'
       document.querySelector('.js-imageFormInputLabel').innerHTML = labelVal
 
       if ((event.target.files && event.target.files.length > 1) || event.target.value) {
