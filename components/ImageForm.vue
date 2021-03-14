@@ -1970,7 +1970,7 @@ export default {
               width: 1,
               height: 1,
               columns: '3/4',
-              rows: '3/5',
+              rows: '3/4',
               padding: '0 0 1 0',
               orientation: 'landscape'
             }
@@ -2134,7 +2134,7 @@ export default {
               height: 1,
               columns: '5/6',
               rows: '3/4',
-              padding: '0 1 1 0',
+              padding: '0 1 0 0',
               orientation: 'landscape'
             }
           ],
@@ -2626,15 +2626,15 @@ export default {
           ],
           titles: {
             columns: '1/2',
-            rows: '5/6'
+            rows: '4/5'
           },
           texts: {
-            columns: '1/2',
-            rows: '5/6'
+            columns: '2/3',
+            rows: '4/5'
           }
         },
         {
-          name: 'VVV4-1-U',
+          name: 'VVV4-2-U',
           width: 6,
           height: 4,
           arrow: 'up',
@@ -2666,11 +2666,11 @@ export default {
           ],
           titles: {
             columns: '1/2',
-            rows: '5/6'
+            rows: '4/5'
           },
           texts: {
-            columns: '1/2',
-            rows: '5/6'
+            columns: '2/3',
+            rows: '4/5'
           }
         },
 
@@ -2717,7 +2717,7 @@ export default {
 
         {
           name: 'VVV5-2-U',
-          width: 8,
+          width: 7,
           height: 5,
           arrow: 'up',
           images: [
@@ -2756,49 +2756,6 @@ export default {
           }
         },
 
-        // - Three Images - Horizontal, Vertical, Vertical
-
-        {
-          name: 'HVV4-2-U',
-          width: 6,
-          height: 4,
-          arrow: 'up',
-          images: [
-            {
-              width: 2,
-              height: 3,
-              columns: '1/3',
-              rows: '1/4',
-              padding: '1 0 1 1',
-              orientation: 'portrait'
-            },
-            {
-              width: 2,
-              height: 2,
-              columns: '3/5',
-              rows: '2/4',
-              padding: '0 0 1 0',
-              orientation: 'landscape'
-            },
-            {
-              width: 2,
-              height: 3,
-              columns: '5/7',
-              rows: '1/4',
-              padding: '1 1 1 0',
-              orientation: 'portrait'
-            }
-          ],
-          titles: {
-            columns: '1/2',
-            rows: '4/5'
-          },
-          texts: {
-            columns: '2/3',
-            rows: '4/5'
-          }
-        },
-
         {
           name: 'VVV6-1-R',
           width: 10,
@@ -2808,7 +2765,7 @@ export default {
             {
               width: 3,
               height: 6,
-              columns: '1/3',
+              columns: '2/5',
               rows: '1/7',
               padding: '1 0 1 1',
               orientation: 'portrait'
@@ -2816,7 +2773,7 @@ export default {
             {
               width: 3,
               height: 6,
-              columns: '2/5',
+              columns: '5/8',
               rows: '1/7',
               padding: '1 0 1 0',
               orientation: 'portrait'
@@ -2824,7 +2781,7 @@ export default {
             {
               width: 2,
               height: 4,
-              columns: '5/8',
+              columns: '8/11',
               rows: '1/7',
               padding: '1 1 1 0',
               orientation: 'portrait'
@@ -2922,7 +2879,787 @@ export default {
           }
         },
 
+        // - Three Images - Horizontal, Vertical, Vertical
+
+        {
+          name: 'HVV2-1-R',
+          width: 5,
+          height: 2,
+          arrow: 'right',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '1/3',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '1/3',
+              padding: '1 0 1 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '5/6',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '1/2'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '2/3'
+          }
+        },
+
+        {
+          name: 'HVV2-2-R',
+          width: 4,
+          height: 2,
+          arrow: 'right',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '1/3',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '3/4',
+              rows: '1/2',
+              padding: '1 0 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '4/5',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '1/2'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '2/3'
+          }
+        },
+
+        {
+          name: 'HVV3-1-U',
+          width: 4,
+          height: 3,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '1/2',
+              rows: '1/3',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '1/3',
+              padding: '1 0 1 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '4/5',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '3/4'
+          }
+        },
+
+        {
+          name: 'HVV3-2-U',
+          width: 3,
+          height: 3,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '1/2',
+              rows: '1/3',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '1/2',
+              padding: '1 0 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '3/4',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '3/4'
+          }
+        },
+
+        {
+          name: 'HVV3-3-R',
+          width: 5,
+          height: 3,
+          arrow: 'right',
+          images: [
+            {
+              width: 2,
+              height: 3,
+              columns: '2/4',
+              rows: '1/4',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '4/5',
+              rows: '1/3',
+              padding: '1 0 0 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '5/6',
+              rows: '1/2',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '2/3'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '3/4'
+          }
+        },
+
+        {
+          name: 'HVV3-4-R',
+          width: 4,
+          height: 3,
+          arrow: 'right',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '1/3',
+              padding: '1 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '3/4',
+              rows: '2/3',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '3/5',
+              rows: '1/4',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '2/3'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '3/4'
+          }
+        },
+
+        {
+          name: 'HVV4-2-U',
+          width: 6,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 3,
+              columns: '1/3',
+              rows: '1/4',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '2/4',
+              padding: '0 0 1 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '5/7',
+              rows: '1/4',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '4/5'
+          }
+        },
+
+        {
+          name: 'HVV4-4-U',
+          width: 3,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '1/2',
+              rows: '1/3',
+              padding: '1 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '1/2',
+              rows: '3/4',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '2/4',
+              rows: '1/4',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '4/5'
+          }
+        },
+
+        {
+          name: 'HVV5-2-U',
+          width: 6,
+          height: 5,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 4,
+              columns: '1/3',
+              rows: '1/5',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '1/3',
+              padding: '1 0 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 4,
+              columns: '5/7',
+              rows: '1/5',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '5/6'
+          }
+        },
+
+        {
+          name: 'HVV5-4-R',
+          width: 6,
+          height: 5,
+          arrow: 'right',
+          images: [
+            {
+              width: 2,
+              height: 3,
+              columns: '2/4',
+              rows: '1/4',
+              padding: '1 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '4/6',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 3,
+              height: 5,
+              columns: '4/7',
+              rows: '1/6',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '5/6'
+          }
+        },
+
+        {
+          name: 'HVV5-5-R',
+          width: 2,
+          height: 5,
+          arrow: 'right',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '1/3',
+              padding: '1 1 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '3/5',
+              padding: '0 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '2/3',
+              rows: '5/6',
+              padding: '0 1 1 1',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '5/6'
+          }
+        },
+        {
+          name: 'HVV6-2-U',
+          width: 9,
+          height: 6,
+          arrow: 'up',
+          images: [
+            {
+              width: 3,
+              height: 5,
+              columns: '1/4',
+              rows: '1/6',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 3,
+              height: 3,
+              columns: '4/7',
+              rows: '1/4',
+              padding: '1 0 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 3,
+              height: 5,
+              columns: '7/10',
+              rows: '1/6',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '6/7'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '6/7'
+          }
+        },
+
+        {
+          name: 'HVV6-4-R',
+          width: 6,
+          height: 6,
+          arrow: 'right',
+          images: [
+            {
+              width: 2,
+              height: 4,
+              columns: '2/4',
+              rows: '1/5',
+              padding: '1 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '5/7',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 3,
+              height: 6,
+              columns: '4/7',
+              rows: '1/7',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '6/7'
+          }
+        },
+
         // - Three Images - Horizontal, Horizontal, Vertical
+
+        {
+          name: 'HHV2-1-U',
+          width: 3,
+          height: 2,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 1,
+              columns: '1/2',
+              rows: '1/2',
+              padding: '1 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '1/2',
+              padding: '1 0 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '3/4',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '2/3'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '2/3'
+          }
+        },
+
+        {
+          name: 'HHV2-2-R',
+          width: 3,
+          height: 2,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '1/2',
+              padding: '1 0 0 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '2/3',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '3/4',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '1/2'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '2/3'
+          }
+        },
+
+        {
+          name: 'HHV2-3-R',
+          width: 4,
+          height: 2,
+          arrow: 'right',
+          images: [
+            {
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '2/3',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '3/4',
+              rows: '1/3',
+              padding: '1 0 1 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '4/5',
+              rows: '1/2',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '1/2'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '2/3'
+          }
+        },
+
+        {
+          name: 'HHV3-2-U',
+          width: 2,
+          height: 3,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 1,
+              columns: '1/2',
+              rows: '1/2',
+              padding: '1 0 0 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '1/2',
+              rows: '2/3',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'portrait'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '3/4'
+          }
+        },
+
+        {
+          name: 'HHV3-3-U',
+          width: 3,
+          height: 3,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 1,
+              columns: '1/2',
+              rows: '2/3',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '1/3',
+              padding: '1 0 1 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '3/4',
+              rows: '1/2',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '3/4'
+          }
+        },
+
+        {
+          name: 'HHV3-4-U',
+          width: 5,
+          height: 3,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '1/3',
+              rows: '1/3',
+              padding: '1 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '3/4',
+              rows: '1/3',
+              padding: '1 0 1 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '4/6',
+              rows: '1/3',
+              padding: '1 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '3/4'
+          }
+        },
 
         {
           name: 'HHV4-1-U',
@@ -2962,6 +3699,416 @@ export default {
           texts: {
             columns: '2/3',
             rows: '4/5'
+          }
+        },
+
+        {
+          name: 'HHV4-2-U',
+          width: 4,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 3,
+              columns: '1/3',
+              rows: '1/4',
+              padding: '1 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '1/3',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '3/5',
+              padding: '0 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '4/5'
+          }
+        },
+
+        {
+          name: 'HHV4-3-U',
+          width: 6,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '1/3',
+              rows: '2/4',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 3,
+              columns: '3/5',
+              rows: '1/4',
+              padding: '1 0 1 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '5/7',
+              rows: '1/3',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '4/5'
+          }
+        },
+
+        {
+          name: 'HHV4-5-U',
+          width: 4,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 3,
+              columns: '1/3',
+              rows: '1/4',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '1/3',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '4/5',
+              rows: '3/4',
+              padding: '0 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '4/5'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '4/5'
+          }
+        },
+
+        {
+          name: 'HHV4-6-R',
+          width: 2,
+          height: 4,
+          arrow: 'up',
+          images: [
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '1/3',
+              padding: '1 1 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '3/4',
+              padding: '0 1 0 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '4/5',
+              padding: '0 1 1 1',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '3/4'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '4/5'
+          }
+        },
+
+        {
+          name: 'HHV5-2-U',
+          width: 4,
+          height: 5,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 4,
+              columns: '1/3',
+              rows: '1/5',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '1/3',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '3/5',
+              rows: '3/5',
+              padding: '0 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '5/6'
+          }
+        },
+
+        {
+          name: 'HHV5-3-U',
+          width: 6,
+          height: 5,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '1/3',
+              rows: '3/5',
+              padding: '0 0 1 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 4,
+              columns: '3/5',
+              rows: '1/5',
+              padding: '1 0 1 0',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '5/7',
+              rows: '1/3',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '5/6'
+          }
+        },
+
+        {
+          name: 'HHV5-5-U',
+          width: 5,
+          height: 5,
+          arrow: 'up',
+          images: [
+            {
+              width: 2,
+              height: 4,
+              columns: '1/3',
+              rows: '1/5',
+              padding: '1 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 3,
+              height: 3,
+              columns: '3/6',
+              rows: '1/4',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '4/6',
+              rows: '4/6',
+              padding: '0 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '5/6'
+          }
+        },
+
+        {
+          name: 'HHV6-2-U',
+          width: 6,
+          height: 6,
+          arrow: 'up',
+          images: [
+            {
+              width: 3,
+              height: 6,
+              columns: '1/4',
+              rows: '1/6',
+              padding: '1 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 3,
+              height: 3,
+              columns: '4/7',
+              rows: '1/4',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 3,
+              height: 3,
+              columns: '4/7',
+              rows: '4/7',
+              padding: '0 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '6/7'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '6/7'
+          }
+        },
+
+        {
+          name: 'HHV6-2-U',
+          width: 6,
+          height: 6,
+          arrow: 'up',
+          images: [
+            {
+              width: 3,
+              height: 6,
+              columns: '1/4',
+              rows: '1/6',
+              padding: '1 0 1 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 3,
+              height: 3,
+              columns: '4/7',
+              rows: '1/4',
+              padding: '1 1 0 0',
+              orientation: 'landscape'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '5/7',
+              rows: '4/6',
+              padding: '0 1 1 0',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '6/7'
+          },
+          texts: {
+            columns: '2/3',
+            rows: '6/7'
+          }
+        },
+
+        {
+          name: 'HHV6-6-R',
+          width: 3,
+          height: 6,
+          arrow: 'right',
+          images: [
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '1/3',
+              padding: '1 1 0 1',
+              orientation: 'landscape'
+            },
+            {
+              width: 1,
+              height: 2,
+              columns: '2/3',
+              rows: '3/5',
+              padding: '0 0 0 1',
+              orientation: 'portrait'
+            },
+            {
+              width: 2,
+              height: 2,
+              columns: '2/4',
+              rows: '5/7',
+              padding: '0 1 1 1',
+              orientation: 'landscape'
+            }
+          ],
+          titles: {
+            columns: '1/2',
+            rows: '5/6'
+          },
+          texts: {
+            columns: '1/2',
+            rows: '6/7'
           }
         }
       ]
