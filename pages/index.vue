@@ -174,19 +174,7 @@ export default {
     },
 
     equalizeColors (imageData, currentPixel, lightPixel) {
-      if (this.gameBoyMode) {
-        if (!lightPixel) {
-          imageData.data[currentPixel] = this.col1[0]
-          imageData.data[currentPixel + 1] = this.col1[1]
-          imageData.data[currentPixel + 2] = this.col1[2]
-        } else {
-          imageData.data[currentPixel] = this.col2[0]
-          imageData.data[currentPixel + 1] = this.col2[1]
-          imageData.data[currentPixel + 2] = this.col2[2]
-        }
-      } else {
-        imageData.data[currentPixel + 1] = imageData.data[currentPixel + 2] = imageData.data[currentPixel]
-      }
+      imageData.data[currentPixel + 1] = imageData.data[currentPixel + 2] = imageData.data[currentPixel]
       return imageData
     },
 
@@ -203,7 +191,7 @@ export default {
     },
 
     getImageDimensions (index) {
-      const images = this.template.images.sort((a, b) => a.orientation.localeCompare(b.orientation))
+      const images = this.template.images
       const image = images[index]
       const columns = image.width
       const rows = image.height
@@ -227,8 +215,24 @@ export default {
     },
 
     setCanvas () {
-      const images = this.displayedImages.sort((a, b) => b.ratio - a.ratio)
-      images.forEach((el, index) => {
+      const orientations = this.template.images.map(value => value.orientation)
+      const imagesSorted = []
+      let images = this.displayedImages
+      orientations.forEach(function (key) {
+        let found = false
+        images = images.filter(function (item) {
+          const ratio = item.ratio > 1 ? 'landscape' : 'portrait'
+          if (!found && ratio === key) {
+            imagesSorted.push(item)
+            found = true
+            return false
+          } else {
+            return true
+          }
+        })
+      })
+      this.displayedImages = imagesSorted
+      imagesSorted.forEach((el, index) => {
         const ctx = this.$refs.canvas[index].getContext('2d')
         const image = el.image
         const imageDimensions = this.getImageDimensions(index)

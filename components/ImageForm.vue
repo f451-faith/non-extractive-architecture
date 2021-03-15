@@ -49,7 +49,7 @@
               </div>
             </div>
             <div :class="{ load: formLoading }" class="imageform__body__loading">
-              Processing your images…
+              Processing your images…<br>This can take up to 1 minute, depending on the size of the images.
             </div>
           </div>
         </div>
@@ -218,6 +218,7 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid var(--color-blue);
+  white-space: nowrap
 }
 
 .imageform__body {
@@ -391,6 +392,7 @@ export default {
   opacity: 0;
   pointer-events: none;
   background-color: white;
+  text-align: center;
 
   &.load {
     opacity: 1;

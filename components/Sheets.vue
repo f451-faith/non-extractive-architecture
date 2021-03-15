@@ -216,7 +216,8 @@ export default {
   grid-row-gap: var(--inside);
   grid-template-columns: repeat(var(--columns), 420mm);
   grid-template-rows: repeat(var(--rows), 297mm);
-  mask-composite: source-in, xor;
+  -webkit-mask-composite: source-in, xor;
+  mask-composite: intersect;
   mask-image: linear-gradient(90deg, transparent 0%, transparent calc(var(--inside) / 2), black calc(var(--inside) / 2), black calc(100% - var(--inside) / 2), transparent calc(100% - var(--inside) / 2), transparent calc(100% + var(--inside) / 2)),
               linear-gradient(transparent 0%, transparent calc(var(--inside) / 2), black calc(var(--inside) / 2), black calc(100% - var(--inside) / 2), transparent calc(100% - var(--inside) / 2), transparent calc(100% + var(--inside) / 2));
   mask-repeat: repeat;
