@@ -193,8 +193,10 @@ export default {
     getImageDimensions (index) {
       const images = this.template.images
       const image = images[index]
-      const columns = image.width
-      const rows = image.height
+      const columnsArr = image.columns.split('/')
+      const columns = columnsArr[1] - columnsArr[0]
+      const rowsArr = image.rows.split('/')
+      const rows = rowsArr[1] - rowsArr[0]
       const width = columns * 420 - 40 + (columns - 1) * 10
       const height = rows * 297 - 40 + (rows - 1) * 10
       const ratio = width / height
