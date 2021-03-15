@@ -7,7 +7,7 @@
       </div>
       <div class="sidebar__body">
         <div class="sidebar__form">
-          <div v-if="baseImages.length > 0" class="sidebar__item">
+          <div v-if="displayedImages.length > 0" class="sidebar__item">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" for="title">Title</label>
               <div class="sidebar__input__length" :class="{ error: formValue.title.length >= 100 }">
@@ -25,7 +25,7 @@
               @focus="autogrow"
             />
           </div>
-          <div v-if="baseImages.length > 0" class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
+          <div v-if="displayedImages.length > 0" class="sidebar__item" :class="{ disabled: formValue.title.length === 0 }">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" for="subtitle">Subtitle/Author</label>
               <div class="sidebar__input__length" :class="{ error: formValue.subtitle.length >= 100 }">
@@ -43,7 +43,7 @@
               @focus="autogrow"
             />
           </div>
-          <div v-if="baseImages.length > 0" class="sidebar__item" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 }">
+          <div v-if="displayedImages.length > 0" class="sidebar__item" :class="{ disabled: formValue.title.length === 0 || formValue.subtitle.length === 0 }">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" for="text_english">Your text</label>
               <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 400 }">
@@ -61,7 +61,7 @@
               @focus="autogrow"
             />
           </div>
-          <div v-if="baseImages.length === 0" class="sidebar__item">
+          <div v-if="displayedImages.length === 0" class="sidebar__item">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" for="text_english">Your text</label>
               <div class="sidebar__input__length" :class="{ error: formValue.text.length >= 500 }">
@@ -80,13 +80,13 @@
             />
           </div>
         </div>
-        <div v-for="(image, index) in baseImages" :key="index" class="sidebar__form">
-          <div v-if="baseImages.length > 1" class="sidebar__item">
+        <div v-for="(image, index) in displayedImages" :key="'image' + index" class="sidebar__form">
+          <div v-if="displayedImages.length > 1" class="sidebar__item">
             <div class="sidebar__item__header">
               <label class="sidebar__item__label" :for="'select' + index">Image {{ index + 1 }}</label>
             </div>
             <select :id="'select' + index" :name="'select' + index" :class="{ load: sheetsLoading }" @change="changeImageDisplayed(index, $event)">
-              <option v-for="(img, i) in baseImages" :key="i" :value="img.name.replace(/\.[^/.]+$/, '')" :selected="i === index">
+              <option v-for="(img, i) in $store.state.images.array" :key="'select' + i" :value="img.name.replace(/\.[^/.]+$/, '')" :selected="img.name === image.name">
                 {{ img.name }}
               </option>
             </select>
@@ -141,7 +141,7 @@
           </div>
         </div>
         <div class="sidebar__form">
-          <button class="sidebar__button" :class="{ disabled: (baseImages.length > 0 && (formValue.title.length === 0 || formValue.subtitle.length === 0 || formValue.text.length === 0)) || (baseImages.length === 0 && formValue.text.length === 0) }" @click.prevent="printSheets">
+          <button class="sidebar__button" :class="{ disabled: (displayedImages.length > 0 && (formValue.title.length === 0 || formValue.subtitle.length === 0 || formValue.text.length === 0)) || (displayedImages.length === 0 && formValue.text.length === 0) }" @click.prevent="printSheets">
             Print the composition
           </button>
         </div>
@@ -154,10 +154,6 @@
 export default {
   name: 'Sidebar',
   props: {
-    baseImages: {
-      type: Array,
-      default: null
-    },
     displayedImages: {
       type: Array,
       default: null
@@ -205,8 +201,9 @@ export default {
     },
 
     changeImageDisplayed (index, event) {
-      const imageIndex = event.target.selectedIndex
-      this.displayedImages[index] = this.baseImages[imageIndex]
+      const imageText = event.target.value
+      const item = this.$store.state.images.array.find((obj) => { return obj.name.replace(/\.[^/.]+$/, '') === imageText })
+      this.displayedImages[index] = item
       this.$emit('displayedImagesUpdate', this.displayedImages)
     },
 

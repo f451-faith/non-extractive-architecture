@@ -3,7 +3,6 @@
     <ImageForm
       v-if="!sidebar"
       :form-loading="formLoading"
-      :base-images="baseImages"
       @submitImagesToParent="submitImages"
       @submitImageTemplateToParent="submitImageTemplate"
       @submitTextTemplateToParent="submitTextTemplate"
@@ -12,7 +11,6 @@
       v-if="sidebar"
       :key="componentKey"
       :sheets-loading="sheetsLoading"
-      :base-images="baseImages"
       :displayed-images="displayedImages"
       :template="template"
       :form-value="formValue"
@@ -21,7 +19,6 @@
     <Sidebar
       v-if="sidebar"
       :sheets-loading="sheetsLoading"
-      :base-images="baseImages"
       :displayed-images="displayedImages"
       :form-value="formValue"
       @inputUpdate="formValue = formValue"
@@ -32,7 +29,7 @@
       v-if="sidebar"
       :template="template"
     />
-    <canvas v-for="(img, index) in baseImages" :key="index" ref="canvas" />
+    <canvas v-for="(img, index) in $store.state.images.array" :key="'canvas' + index" ref="canvas" />
     <Footer />
   </main>
 </template>
@@ -45,7 +42,6 @@ export default {
     return {
       sidebar: false,
       componentKey: 0,
-      baseImages: [],
       displayedImages: [],
       template: null,
       formValue: {
@@ -85,8 +81,9 @@ export default {
       this.template = templateFromForm
       this.formLoading = true
       setTimeout(() => {
-        this.setCanvas()
+        this.setCanvas(true)
         setTimeout(() => {
+          this.displayedImages = JSON.parse(JSON.stringify(this.$store.state.images.array))
           this.sidebar = true
           this.formLoading = false
         }, 200)
@@ -101,7 +98,7 @@ export default {
       this.displayedImages = displayedImages
       this.sheetsLoading = true
       setTimeout(() => {
-        this.setCanvas()
+        this.setCanvas(false)
         this.componentKey += 1
         setTimeout(() => {
           this.sheetsLoading = false
@@ -120,8 +117,7 @@ export default {
         image.src = e.target.result
         image.onload = function () {
           const ratio = image.width / image.height
-          vm.baseImages.push({ name, image, ratio })
-          vm.displayedImages.push({ name, image, ratio })
+          vm.$store.commit('images/add', { name, image, ratio })
           vm.updateCaptions()
         }
       }
@@ -139,8 +135,7 @@ export default {
 
     updateCaptions () {
       const arr = []
-      this.baseImages.forEach((el) => { arr.push('') })
-      this.displayedImages.forEach((el) => { arr.push('') })
+      this.$store.state.images.array.forEach((el) => { arr.push('') })
       this.formValue.caption = arr
     },
 
@@ -200,7 +195,7 @@ export default {
       const width = columns * 420 - 40 + (columns - 1) * 10
       const height = rows * 297 - 40 + (rows - 1) * 10
       const ratio = width / height
-      const imageRatio = this.displayedImages[index].ratio
+      const imageRatio = this.$store.state.images.array[index].ratio
       let imageHeight = null
       let imageWidth = null
       if (ratio > imageRatio) {
@@ -216,25 +211,13 @@ export default {
       return [imageWidth, imageHeight]
     },
 
-    setCanvas () {
-      const orientations = this.template.images.map(value => value.orientation)
-      const imagesSorted = []
-      let images = this.displayedImages
-      orientations.forEach(function (key) {
-        let found = false
-        images = images.filter(function (item) {
-          const ratio = item.ratio > 1 ? 'landscape' : 'portrait'
-          if (!found && ratio === key) {
-            imagesSorted.push(item)
-            found = true
-            return false
-          } else {
-            return true
-          }
-        })
-      })
-      this.displayedImages = imagesSorted
-      imagesSorted.forEach((el, index) => {
+    setCanvas (sortImages = true) {
+      if (sortImages) {
+        const orientations = this.template.images.map(value => value.orientation)
+        this.$store.commit('images/orderImages', orientations)
+      }
+
+      this.$store.state.images.array.forEach((el, index) => {
         const ctx = this.$refs.canvas[index].getContext('2d')
         const image = el.image
         const imageDimensions = this.getImageDimensions(index)
@@ -273,7 +256,7 @@ export default {
 
     addToImageArray (index) {
       const url = this.$refs.canvas[index].toDataURL('image/png')
-      this.displayedImages[index].ditheredImage = url
+      this.$store.commit('images/addDitheredImage', { index, url })
     }
   }
 }

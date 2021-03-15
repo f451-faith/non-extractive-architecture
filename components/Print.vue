@@ -5,12 +5,12 @@
         <div class="print__overview__inner" :style="{ transform: `scale(${scaleSheets})`}">
           <div class="js-printPage" />
           <div class="print__overview__borders">
-            <div v-for="(n, index) in totalNumber" :key="index" />
+            <div v-for="(n, index) in totalNumber" :key="'overview' + index" />
           </div>
         </div>
       </div>
     </div>
-    <div v-for="(n, index) in totalNumber" :key="index" class="print__page" :style="{ '--x': Math.floor(index / width), '--y': index % width}">
+    <div v-for="(n, index) in totalNumber" :key="'page' + index" class="print__page" :style="{ '--x': Math.floor(index / width), '--y': index % width}">
       <div class="print__page__inner js-printPage" />
     </div>
   </section>

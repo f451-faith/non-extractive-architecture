@@ -44,12 +44,12 @@
               </div>
             </div>
             <div v-if="showImageInput" class="imageform__body__buttons">
-              <div v-for="(template, index) in filteredTemplates" :key="index" class="imageform__body__template" @click="chooseImageTemplate(template)">
+              <div v-for="(template, index) in filteredTemplates" :key="'imageTemplate' + index" class="imageform__body__template" @click="chooseImageTemplate(template)">
                 <img :src="getImageSrc(template)">
               </div>
             </div>
             <div v-if="showTextInput" class="imageform__body__buttons">
-              <div v-for="(template, index) in textTemplates" :key="index" class="imageform__body__template" @click="chooseTextTemplate(template)">
+              <div v-for="(template, index) in textTemplates" :key="'textTemplate' + index" class="imageform__body__template" @click="chooseTextTemplate(template)">
                 <span>{{ template.title }}</span>
               </div>
             </div>
@@ -72,10 +72,6 @@ export default {
     formLoading: {
       type: Boolean,
       default: false
-    },
-    baseImages: {
-      type: Array,
-      default: null
     }
   },
 
@@ -119,7 +115,7 @@ export default {
 
   computed: {
     filteredTemplates () {
-      const images = this.baseImages
+      const images = this.$store.state.images.array
       const ratios = []
       images.forEach((img) => {
         if (img.ratio < 1) { ratios.push('portrait') }
