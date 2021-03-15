@@ -3109,11 +3109,11 @@ export default {
               orientation: 'landscape'
             },
             {
-              width: 2,
-              height: 3,
-              columns: '3/5',
-              rows: '1/4',
-              padding: '1 1 1 0',
+              width: 1,
+              height: 1,
+              columns: '2/3',
+              rows: '3/4',
+              padding: '0 0 1 1',
               orientation: 'portrait'
             }
           ],
@@ -3145,7 +3145,7 @@ export default {
               width: 2,
               height: 2,
               columns: '3/5',
-              rows: '2/4',
+              rows: '1/3',
               padding: '0 0 1 0',
               orientation: 'landscape'
             },
@@ -3310,12 +3310,12 @@ export default {
               height: 2,
               columns: '2/3',
               rows: '3/5',
-              padding: '0 0 1 1',
+              padding: '0 1 0 1',
               orientation: 'portrait'
             },
             {
-              width: 2,
-              height: 3,
+              width: 1,
+              height: 1,
               columns: '2/3',
               rows: '5/6',
               padding: '0 1 1 1',
@@ -3426,7 +3426,7 @@ export default {
               height: 1,
               columns: '1/2',
               rows: '1/2',
-              padding: '1 0 1 1',
+              padding: '1 0 0 1',
               orientation: 'landscape'
             },
             {
@@ -3680,7 +3680,7 @@ export default {
               height: 3,
               columns: '3/5',
               rows: '1/4',
-              padding: '0 0 1 0',
+              padding: '1 0 1 0',
               orientation: 'portrait'
             },
             {
@@ -3688,7 +3688,7 @@ export default {
               height: 2,
               columns: '5/7',
               rows: '1/3',
-              padding: '0 1 1 0',
+              padding: '1 1 0 0',
               orientation: 'landscape'
             }
           ],
@@ -3829,7 +3829,7 @@ export default {
           name: 'HHV4-6-R',
           width: 2,
           height: 4,
-          arrow: 'up',
+          arrow: 'right',
           images: [
             {
               width: 1,
@@ -4031,7 +4031,7 @@ export default {
         },
 
         {
-          name: 'HHV6-2-U',
+          name: 'HHV6-5-U',
           width: 6,
           height: 6,
           arrow: 'up',
