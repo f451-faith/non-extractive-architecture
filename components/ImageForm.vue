@@ -6,7 +6,12 @@
         <h2>Exhibition Format Editor</h2>
       </div>
       <div class="imageform__body">
-        <div class="imageform__body__inner js-imageFormBodyInner" :class="{ inactive: bodyInnerInactive }">
+        <div v-if="isSafari || isFirefox" class="imageform__body__inner">
+          <div class="imageform__error">
+            This browser is not yet supported.<br>Please use <a href="https://www.google.com/intl/fr_fr/chrome/" target="_blank">Google Chrome</a> or <a href="https://www.opera.com/fr/download" target="_blank">Opera</a> to ensure its usability.
+          </div>
+        </div>
+        <div v-else class="imageform__body__inner js-imageFormBodyInner" :class="{ inactive: bodyInnerInactive }">
           <form v-if="showForm" class="imageform__body__form js-imageFormBodyForm" @submit.prevent="processForm">
             <button class="imageform__button js-imageFormImageButton" :class="{ hidden: showTextInput, inactive: showImageInput }" @click.prevent="getImageForm">
               I want to build a module with image(s).
@@ -76,6 +81,8 @@ export default {
 
   data () {
     return {
+      isSafari: false,
+      isFirefox: false,
       imageNumber: null,
       getSidebar: false,
       showForm: true,
@@ -130,6 +137,11 @@ export default {
         })
       })
     }
+  },
+
+  mounted () {
+    if (!window.createImageBitmap) { this.isSafari = true }
+    if (navigator.userAgent.toLowerCase().includes('firefox')) { this.isFirefox = true }
   },
 
   methods: {
@@ -397,6 +409,19 @@ export default {
   &.load {
     opacity: 1;
     pointer-events: initial;
+  }
+}
+
+.imageform__error {
+  @include padding(1 4);
+  background-color: var(--color-grey);
+  color: var(--color-darkgrey);
+  border: 1px solid var(--color-grey);
+  border-radius: 5px;
+  text-align: center;
+
+  a {
+    color: var(--color-blue)
   }
 }
 </style>
