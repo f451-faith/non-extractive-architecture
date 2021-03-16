@@ -1,20 +1,5 @@
-# non-extractive-architecture
+# Non-Extractive Architecture
 
-## Build Setup
+## Exhibition Format Editor
 
-```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+This software developed by F451 (Domitille Debret and Quentin Creuzet) automates the translation of the research conducted in Palazzo delle Zattere into exhibition form, constructing in the process a vocabulary around the concept of non-extractive architecture. The content developed by the research team will be organised and rendered visually by this software, and then printed and hung on the walls of V-A-C Zattere throughout the course of the project.
