@@ -136,8 +136,8 @@ export default {
   },
 
   mounted () {
-    const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera || navigator.userAgent.includes(' OPR/')
-    const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)
+    const isOpera = navigator.userAgent.includes('Opera') || navigator.userAgent.includes('OPR')
+    const isChrome = navigator.userAgent.includes('Chrome')
     if (isOpera || isChrome) { this.isCompatibleBrowser = true }
     this.isVisible = true
   },
