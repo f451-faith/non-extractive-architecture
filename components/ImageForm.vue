@@ -1,12 +1,12 @@
 <template>
   <section class="imageform" :class="{ inactive: getSidebar }">
-    <div class="imageform__inner">
+    <div v-if="isVisible" class="imageform__inner">
       <div class="imageform__header">
         <h1>Non-Extractive Architecture</h1>
         <h2>Exhibition Format Editor</h2>
       </div>
       <div class="imageform__body">
-        <div v-if="isSafari || isFirefox" class="imageform__body__inner">
+        <div v-if="!isCompatibleBrowser" class="imageform__body__inner">
           <div class="imageform__error">
             This browser is not yet supported.<br>Please use <a href="https://www.google.com/intl/fr_fr/chrome/" target="_blank">Google Chrome</a> or <a href="https://www.opera.com/fr/download" target="_blank">Opera</a> to ensure its usability.
           </div>
@@ -77,8 +77,8 @@ export default {
 
   data () {
     return {
-      isSafari: false,
-      isFirefox: false,
+      isVisible: false,
+      isCompatibleBrowser: false,
       imageNumber: null,
       getSidebar: false,
       showForm: true,
@@ -136,8 +136,10 @@ export default {
   },
 
   mounted () {
-    if (!window.createImageBitmap) { this.isSafari = true }
-    if (navigator.userAgent.toLowerCase().includes('firefox')) { this.isFirefox = true }
+    const isOpera = (!!window.opr && !!window.opr.addons) || !!window.opera || navigator.userAgent.includes(' OPR/')
+    const isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)
+    if (isOpera || isChrome) { this.isCompatibleBrowser = true }
+    this.isVisible = true
   },
 
   methods: {
