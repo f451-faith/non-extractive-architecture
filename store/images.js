@@ -21,7 +21,7 @@ export const mutations = {
     orientations.forEach(function (key) {
       let found = false
       images = images.filter(function (item) {
-        const ratio = item.ratio > 1 ? 'landscape' : 'portrait'
+        const ratio = item.ratio >= 1 ? 'landscape' : 'portrait'
         if (!found && ratio === key) {
           imagesSorted.push(item)
           found = true
