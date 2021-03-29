@@ -3,7 +3,7 @@
     <div ref="sheets" class="sheets__inner js-sheetsInner" :style="{ transform: `scale(${scaleSheets})`}" :data-template="template.name">
       <div v-if="displayedImages && displayedImages.length > 0" class="sheets__grid" :style="{ '--columns': template.width, '--rows': template.height }">
         <div v-for="(image, index) in displayedImages" :key="'image' + index" :class="{ load: sheetsLoading }" :style="{ gridColumn: template.images[index].columns, gridRow: template.images[index].rows, margin: template.images[index].padding.replaceAll('1', 'var(--outside)') }" class="sheets__image">
-          <div v-if="template.name === 'template-001'" class="sheets__header sheets__header--image">
+          <div v-if="isSingleTemplate(template)" class="sheets__header sheets__header--image">
             <div class="sheets__header__left">
               <div class="sheets__title" v-html="md(formValue.title)" />
               <div class="sheets__subtitle" v-html="md(formValue.subtitle)" />
@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-        <div v-if="template.name !== 'template-001'" class="sheets__titles" :style="{ gridColumn: template.titles.columns, gridRow: template.titles.rows }">
+        <div v-if="!isSingleTemplate(template)" class="sheets__titles" :style="{ gridColumn: template.titles.columns, gridRow: template.titles.rows }">
           <div class="sheets__header" :class="{ invert: template.arrow === 'left'}">
             <div class="sheets__header__left">
               <div class="sheets__title" v-html="md(formValue.title)" />
@@ -40,7 +40,7 @@
             <div v-if="formValue.text" class="sheets__text" lang="en" v-html="md(formValue.text)" />
             <div v-if="formValue.text || formValue.title || formValue.subtitle" class="sheets__text" lang="it" v-html="italianString" />
           </div>
-          <div v-if="template.name === 'template-001'" class="sheets__captions">
+          <div v-if="isSingleTemplate(template)" class="sheets__captions">
             <div v-for="(caption, index) in formValue.caption" :key="'caption' + index" class="sheets__caption">
               <span class="sheets__caption__text" :style="{ '--number': index + 1 }" v-html="md(caption)" />
             </div>
@@ -147,6 +147,11 @@ export default {
 
     md (str) {
       return marked(str)
+    },
+
+    isSingleTemplate (template) {
+      if (template.titles.columns === template.texts.columns && template.titles.rows === template.texts.rows) { return true }
+      return false
     },
 
     async getItalianTranslation () {

@@ -21,6 +21,7 @@
       :sheets-loading="sheetsLoading"
       :displayed-images="displayedImages"
       :form-value="formValue"
+      :format-image="formatImage"
       @inputUpdate="formValue = formValue"
       @displayedImagesUpdate="updateDisplayedImages"
       @formatImageUpdate="updateFormatImage"
@@ -215,6 +216,10 @@ export default {
       if (sortImages) {
         const orientations = this.template.images.map(value => value.orientation)
         this.$store.commit('images/orderImages', orientations)
+      }
+
+      if (this.template.images.length === 1 && this.template.images[0].orientation === 'portrait') {
+        this.formatImage = 'contain'
       }
 
       this.$store.state.images.array.forEach((el, index) => {

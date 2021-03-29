@@ -104,8 +104,8 @@
                   type="radio"
                   name="cover"
                   value="cover"
-                  checked
-                  @change="formatImage"
+                  :checked="formatImage === 'cover'"
+                  @change="changeFormatImage"
                 >
                 <label for="cover-fill">Fill</label>
               </div>
@@ -115,7 +115,8 @@
                   type="radio"
                   name="cover"
                   value="contain"
-                  @change="formatImage"
+                  :checked="formatImage === 'contain'"
+                  @change="changeFormatImage"
                 >
                 <label for="cover-fit">Fit</label>
               </div>
@@ -162,6 +163,10 @@ export default {
       type: Object,
       default: null
     },
+    formatImage: {
+      type: String,
+      default: 'cover'
+    },
     sheetsLoading: {
       type: Boolean,
       default: false
@@ -207,7 +212,7 @@ export default {
       this.$emit('displayedImagesUpdate', this.displayedImages)
     },
 
-    formatImage (event) {
+    changeFormatImage (event) {
       this.$emit('formatImageUpdate', event.target.value)
     }
   }
