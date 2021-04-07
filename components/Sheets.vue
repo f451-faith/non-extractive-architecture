@@ -287,6 +287,10 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+
+  .sheets__header--image + & {
+    height: calc(297mm - var(--external) - var(--internal) - 2em);
+  }
 }
 
 .sheets__image__number {
@@ -335,7 +339,7 @@ export default {
 
   &--image {
     margin-bottom: var(--inside);
-    min-height: 2em;
+    height: 2em;
   }
 }
 
