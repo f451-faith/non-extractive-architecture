@@ -14,6 +14,7 @@
       :displayed-images="displayedImages"
       :template="template"
       :form-value="formValue"
+      :translation="translation"
       :format-image="formatImage"
     />
     <Sidebar
@@ -21,10 +22,12 @@
       :sheets-loading="sheetsLoading"
       :displayed-images="displayedImages"
       :form-value="formValue"
+      :translation="translation"
       :format-image="formatImage"
       @inputUpdate="formValue = formValue"
       @displayedImagesUpdate="updateDisplayedImages"
       @formatImageUpdate="updateFormatImage"
+      @translationUpdate="updateTranslation"
     />
     <Print
       v-if="sidebar"
@@ -52,6 +55,7 @@ export default {
         caption: []
       },
       formatImage: 'cover',
+      translation: true,
       formLoading: false,
       sheetsLoading: false,
       lumR: [],
@@ -93,6 +97,10 @@ export default {
 
     updateFormatImage (formatImage) {
       this.formatImage = formatImage
+    },
+
+    updateTranslation (translation) {
+      this.translation = translation
     },
 
     updateDisplayedImages (displayedImages) {

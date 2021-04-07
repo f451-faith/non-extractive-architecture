@@ -22,7 +22,11 @@ export default {
       { hid: 'description', name: 'description', content: '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'preload', as: 'font', type: 'font/woff', href: '/_nuxt/assets/fonts/Diagramatika-Text-Regular.woff', crossorigin: true },
+      { rel: 'preload', as: 'font', type: 'font/woff2', href: '/_nuxt/assets/fonts/Diagramatika-Text-Regular.woff2', crossorigin: true },
+      { rel: 'preload', as: 'font', type: 'font/woff', href: '/_nuxt/assets/fonts/Diagramatika-Text-Italic.woff', crossorigin: true },
+      { rel: 'preload', as: 'font', type: 'font/woff2', href: '/_nuxt/assets/fonts/Diagramatika-Text-Italic.woff2', crossorigin: true }
     ]
   },
 

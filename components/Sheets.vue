@@ -73,6 +73,10 @@ export default {
       type: Object,
       default: null
     },
+    translation: {
+      type: Boolean,
+      default: true
+    },
     formatImage: {
       type: String,
       default: 'cover'
@@ -117,14 +121,19 @@ export default {
   watch: {
     formValue: {
       handler () {
-        this.debouncedGetTranslation()
+        if (this.displayedImages.length > 0) { this.debouncedGetTranslation() }
       },
       deep: true
+    },
+    translation: {
+      handler () {
+        if (this.displayedImages.length > 0) { this.debouncedGetTranslation() }
+      }
     }
   },
 
   created () {
-    this.debouncedGetTranslation = debounce(this.getItalianTranslation, 300)
+    this.debouncedGetTranslation = debounce(this.getItalianTranslation, 800)
   },
 
   mounted () {
@@ -158,10 +167,10 @@ export default {
       const titleEN = encodeURI(this.formValue.title)
       const subtitleEN = encodeURI(this.formValue.subtitle)
       const textEN = encodeURI(this.formValue.text)
-      const deepl = await this.$axios.$get(`https://api.deepl.com/v2/translate?auth_key=4430afb5-ae5b-090d-8bf0-cec1abd97303&text=${titleEN}&text=${subtitleEN}&text=${textEN}&target_lang=it&source_lang=en&preserve_formatting=1`)
-      const titleIT = deepl.translations[0].text
-      const subtitleIT = deepl.translations[1].text
-      const textIT = deepl.translations[2].text
+      const deepl = await this.$axios.$get(`https://api.deepl.com/v2/translate?auth_key=4430afb5-ae5b-090d-8bf0-cec1abd97303&text=${titleEN}&text=${subtitleEN}&text=${textEN}&target_lang=it&source_lang=en&preserve_formatting=1`).catch(() => { return false })
+      const titleIT = deepl && this.translation ? deepl.translations[0].text : this.formValue.title
+      const subtitleIT = deepl && this.translation ? deepl.translations[1].text : this.formValue.subtitle
+      const textIT = deepl && this.translation ? deepl.translations[2].text : this.formValue.text
       this.italianText = {
         title: titleIT,
         subtitle: subtitleIT,

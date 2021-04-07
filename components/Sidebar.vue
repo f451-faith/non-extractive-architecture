@@ -79,6 +79,21 @@
               @focus="autogrow"
             />
           </div>
+          <div v-if="displayedImages.length > 0" class="sidebar__item">
+            <div class="sidebar__check">
+              <label class="sidebar__check__container" for="translation">
+                Disable Italian translation on title and subtitle
+                <input
+                  id="translation"
+                  type="checkbox"
+                  name="translation"
+                  value="translation"
+                  @change="changeTranslation"
+                >
+                <span class="sidebar__checkmark" />
+              </label>
+            </div>
+          </div>
         </div>
         <div v-for="(image, index) in displayedImages" :key="'image' + index" class="sidebar__form">
           <div v-if="displayedImages.length > 1" class="sidebar__item">
@@ -167,6 +182,10 @@ export default {
       type: String,
       default: 'cover'
     },
+    translation: {
+      type: Boolean,
+      default: true
+    },
     sheetsLoading: {
       type: Boolean,
       default: false
@@ -214,6 +233,10 @@ export default {
 
     changeFormatImage (event) {
       this.$emit('formatImageUpdate', event.target.value)
+    },
+
+    changeTranslation (event) {
+      this.$emit('translationUpdate', !event.target.checked)
     }
   }
 }
@@ -330,6 +353,47 @@ export default {
       color: var(--color-blue);
       opacity: 0.25;
     }
+  }
+}
+
+.sidebar__check__container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 38px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 28px;
+  line-height: 1;
+  color: var(--color-darkgrey);
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+}
+
+.sidebar__checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 28px;
+  width: 28px;
+  background-color: var(--color-grey);
+  border-radius: 5px;
+
+  .sidebar__check__container:hover input ~ & {
+    background-color: var(--color-darkgrey);
+  }
+
+  .sidebar__check__container input:checked ~ & {
+    background-color: var(--color-blue);
   }
 }
 
