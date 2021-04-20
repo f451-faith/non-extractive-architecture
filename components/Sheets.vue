@@ -170,7 +170,7 @@ export default {
       const deepl = await this.$axios.$get(`https://api.deepl.com/v2/translate?auth_key=4430afb5-ae5b-090d-8bf0-cec1abd97303&text=${titleEN}&text=${subtitleEN}&text=${textEN}&target_lang=it&source_lang=en&preserve_formatting=1`).catch(() => { return false })
       const titleIT = deepl && this.translation ? deepl.translations[0].text : this.formValue.title
       const subtitleIT = deepl && this.translation ? deepl.translations[1].text : this.formValue.subtitle
-      const textIT = deepl && this.translation ? deepl.translations[2].text : this.formValue.text
+      const textIT = deepl ? deepl.translations[2].text : this.formValue.text
       this.italianText = {
         title: titleIT,
         subtitle: subtitleIT,
@@ -255,13 +255,14 @@ export default {
   flex-direction: column;
 
   img {
-    @extend .cover;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
 
     &.contain {
       object-fit: contain;
       object-position: top left;
-      width: 100%;
-      height: 100%;
     }
   }
 
@@ -287,10 +288,6 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
-
-  .sheets__header--image + & {
-    height: calc(297mm - var(--external) - var(--internal) - 2em);
-  }
 }
 
 .sheets__image__number {
@@ -339,7 +336,6 @@ export default {
 
   &--image {
     margin-bottom: var(--inside);
-    height: 2em;
   }
 }
 

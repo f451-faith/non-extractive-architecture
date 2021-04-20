@@ -94,12 +94,6 @@ $transition-delay-default: 0s;
 
 // FREE CONFIG
 
-.cover {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
 i, em {
   @extend .font-italic;
 }
